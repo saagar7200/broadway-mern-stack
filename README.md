@@ -19,5 +19,21 @@
 - Function declaration and expression.
 - Different ways to declare functions.
 - Different types of functions.
-  
+
+#### Day-4 : Scope, Higher Order Function and Callbacks
+- What is scope?
+- Different types of scope.
+- Difference between let, const & var.
+- What is HOF?
+- How to implement HOF?
+- What is callback function?
+
+#### Day-5 :Javascript Objects
+- Object Bacis
+- How to Define objects
+- Object properties and methods
+- How to Modify, update, Access and Delete object properties.
+- Freeze and Seal Object.
+- Other Object methods (Keys,values and entries) 
+
   
