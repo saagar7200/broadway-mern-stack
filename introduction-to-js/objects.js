@@ -1,3 +1,4 @@
+
 const person = {
     name: "John",
     age: 30,
@@ -5,7 +6,10 @@ const person = {
 }
 
 
+
+
 // console.log(person.name)
+
 // console.log(person.age)
 
 // console.log(person["age"])
@@ -55,4 +59,7 @@ const person = {
 // console.log(Object.values(person))
 // console.log(Object.keys(person))
 
-// console.log(Object.entries(person))
+
+console.log(Object.entries(person))
+
+console.log(person)
