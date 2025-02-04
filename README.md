@@ -29,11 +29,33 @@
 - What is callback function?
 
 #### Day-5 :Javascript Objects
-- Object Bacis
+- Object Basics
 - How to Define objects
 - Object properties and methods
 - How to Modify, update, Access and Delete object properties.
 - Freeze and Seal Object.
 - Other Object methods (Keys,values and entries) 
 
-  
+### Day-6: Javascript Array Basics and Array Functions
+- Array Basics
+- How to define array in javascript.
+- Array with Object as element.
+- Array Basic methods.
+- Array methods Advanced (map,filter,...etc).
+- Sort array.
+
+### Day-6: Javascript Loops and Conditional Statements
+- What is loop and why we use it.
+- What loops are available in Javascript.
+- Syntax of while, do-while and for loop.
+- what is conditional statements and Why/How to use.
+  - if
+  - if...else
+  - if..else if...else
+  - switch case
+- Understanding control flow.
+- Control transfer statements/keywords
+  - break;
+  - continue;
+  - return;
+
