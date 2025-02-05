@@ -58,9 +58,9 @@ Conditional statements allow a program to make decisions based on different cond
   - switch case
 - Understanding control flow.
 - Control transfer statements/keywords
-
-### Day-6: Hoisting and Closures
   - break;
   - continue;
   - return;
+
+### Day-7: Hoisting and Closures
 
