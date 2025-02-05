@@ -71,7 +71,7 @@ Hoisting is JavaScript's behavior of moving function and variable declarations t
 #### Closures in JavaScript
 A closure is a function that remembers the variables from its outer scope even after the outer function has finished executing.
 - Why Use Closures?
- - Data Encapsulation (Private variables)
- - Maintaining State
- - Function Factories
+   - Data Encapsulation (Private variables)
+   - Maintaining State
+   - Function Factories
 
