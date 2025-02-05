@@ -45,16 +45,20 @@
 - Sort array.
 
 ### Day-6: Javascript Loops and Conditional Statements
+A loop is a programming construct that repeats a block of code as long as a specified condition is true. Loops help avoid code repetition and make the code more efficient.
 - What is loop and why we use it.
 - What loops are available in Javascript.
 - Syntax of while, do-while and for loop.
 - what is conditional statements and Why/How to use.
+Conditional statements allow a program to make decisions based on different conditions.
   - if
   - if...else
   - if..else if...else
   - switch case
 - Understanding control flow.
 - Control transfer statements/keywords
+
+### Day-6: Hoisting and Closures
   - break;
   - continue;
   - return;
