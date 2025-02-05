@@ -50,6 +50,7 @@ A loop is a programming construct that repeats a block of code as long as a spec
 - What loops are available in Javascript.
 - Syntax of while, do-while and for loop.
 - what is conditional statements and Why/How to use.
+  
 Conditional statements allow a program to make decisions based on different conditions.
   - if
   - if...else
