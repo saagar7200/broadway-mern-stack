@@ -57,6 +57,9 @@ Conditional statements allow a program to make decisions based on different cond
   - if..else if...else
   - switch case
 - Understanding control flow.
+
+Control flow determines the execution order of statements in a program. JavaScript executes code line by line unless control structures (loops, conditions) alter the flow.
+  
 - Control transfer statements/keywords
   - break;
   - continue;
