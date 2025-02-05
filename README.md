@@ -68,4 +68,6 @@ Control flow determines the execution order of statements in a program. JavaScri
 ### Day-7: Hoisting and Closures
 #### Hoisting
 Hoisting is JavaScript's behavior of moving function and variable declarations to the top of their scope before execution.
+#### Closures in JavaScript
+A closure is a function that remembers the variables from its outer scope even after the outer function has finished executing.
 
