@@ -66,4 +66,6 @@ Control flow determines the execution order of statements in a program. JavaScri
   - return;
 
 ### Day-7: Hoisting and Closures
+####Hoisting
+Hoisting is JavaScript's behavior of moving function and variable declarations to the top of their scope before execution.
 
