@@ -1,92 +1,92 @@
-// // hoisting
+// hoisting
 
 
-// // console.log(x)
-// // var x = 1
-// // console.log(x)
+// console.log(x)
+// var x = 1
+// console.log(x)
 
 
-// // greet()
+// greet()
 
-// // function greet (){
-// //     console.log('Hello world');
-// // }
+// function greet (){
+//     console.log('Hello world');
+// }
 
-// // func()
+// func()
 
-// // var func = function (){
+// var func = function (){
 
-// // }
+// }
 
-// // console.log(greet)
-
-
-// // let hoisting
-
-// // const x = 10;
+// console.log(greet)
 
 
+// let hoisting
 
-// // console.log(x)
+// const x = 10;
 
 
 
-// // closures
+// console.log(x)
 
 
-// // function outer (){
-// //     var x = 1;
-// //     function inner (){
-// //         console.log(x)
-// //     }
-// //     x = 100
-// //     inner()
-// // }
-// // outer()
-// // const func =  outer()
-// // func()
 
-// // 
-
-// // function factor(f){
-
-// //    return function mult (num){
-// //         console.log(num * f)
-// //     }
-
-// // }
-
-// // const double = factor(2)
-// // const triple = factor(3)
-// // const multBy5 = factor(5)
-
-// // double(20)
-// // triple(20)
-// // multBy5(10)
+// closures
 
 
-// // function counter (){
-// //     let count = 0;
+// function outer (){
+//     var x = 1;
+//     function inner (){
+//         console.log(x)
+//     }
+//     x = 100
+//     inner()
+// }
+// outer()
+// const func =  outer()
+// func()
 
-// //    return {
-// //         increment: () => {
-// //             count++
-// //             console.log(count)
-// //         },
-// //         decrement : ()=>{
-// //             count--
-// //         },
-// //         getCount: () =>{
-// //             console.log(count)
-// //         }
+// 
 
-// //     }
-// // }
+// function factor(f){
 
-// // const count = counter()
-// // count.increment()
-// // count.increment()
-// // count.getCount()
+//    return function mult (num){
+//         console.log(num * f)
+//     }
+
+// }
+
+// const double = factor(2)
+// const triple = factor(3)
+// const multBy5 = factor(5)
+
+// double(20)
+// triple(20)
+// multBy5(10)
+
+
+// function counter (){
+//     let count = 0;
+
+//    return {
+//         increment: () => {
+//             count++
+//             console.log(count)
+//         },
+//         decrement : ()=>{
+//             count--
+//         },
+//         getCount: () =>{
+//             console.log(count)
+//         }
+
+//     }
+// }
+
+// const count = counter()
+// count.increment()
+// count.increment()
+// count.getCount()
 
 
 // function add (){
@@ -108,7 +108,7 @@
 
 // const func = add();
 // func(10)
-// // const func2= add(10)
+// const func2= add(10)
 // func(10)
 // func(20)
 // func(20)
