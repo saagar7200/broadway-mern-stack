@@ -1,7 +1,7 @@
 # MERNSTACK COURSE
 ## Module-1 
 ### Introduction to javaScript
-#### Day 1 : Variable Declararion and Data Types
+#### Day 1 : Introduction to javascript
 - What is Javascript?
 - Overview of web development
 - MERN Stack roadmap
