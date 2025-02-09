@@ -120,7 +120,7 @@ fetchData
 
 > ***async/await*** simplifies working with promises, making asynchronous code look synchronous.
 
-`
+``
 async function getData() {
   try {
     let response = await fetch("https://jsonplaceholder.typicode.com/posts/1");
@@ -132,7 +132,7 @@ async function getData() {
 }
 
 getData();
-`
+``
 
 - fetch api
 
