@@ -71,11 +71,14 @@ Control flow determines the execution order of statements in a program. JavaScri
 #### Hoisting
 __Hoisting__ is JavaScript's behavior of moving function and variable declarations to the top of their scope before execution.
 #### Closures in JavaScript
+
 A __closure__ is a function that remembers the _variables_ from its outer scope even after the outer function has finished executing.
 - Why Use Closures?
+  ```
    - Data Encapsulation (Private variables)
    - Maintaining State
    - Function Factories
+  ```
  
 ### Day-8: asynchronous jsvascript / promises and async/await
 #### Asynchronous programming
@@ -102,11 +105,13 @@ __JavaScript__ is single-threaded, meaning it executes one operation at a time. 
 #### Promises 
 
 > A __Promise__ is an object representing a value that may be available now, in the future, or never. It has three states:
+```
   1. Pending – Initial state
   2. Fulfilled – The operation was successful
   3. Rejected – The operation failed
+```
 
-  ` const fetchData = new Promise((resolve, reject) => {
+  ``` const fetchData = new Promise((resolve, reject) => {
   setTimeout(() => {
     resolve("Data received");
   }, 2000);
@@ -116,7 +121,7 @@ fetchData
   .then((data) => console.log(data)) // "Data received"
   .catch((error) => console.error(error));
   
-  `
+  ```
      
 #### async/await 
 
