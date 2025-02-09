@@ -63,9 +63,11 @@ Conditional statements allow a program to make decisions based on different cond
 Control flow determines the execution order of statements in a program. JavaScript executes code line by line unless control structures (loops, conditions) alter the flow.
   
 - Control transfer statements/keywords
+  ```
   - break;
   - continue;
   - return;
+  ```
 
 ### Day-7: Hoisting and Closures
 #### Hoisting
@@ -88,7 +90,7 @@ __JavaScript__ is single-threaded, meaning it executes one operation at a time. 
 #### Callback hell (Pyramid of Doom)
 
 > __Callback hell__ occurs when multiple nested callbacks are used to handle asynchronous operations, making the code difficult to read and maintain. Example:
-
+Example:
 ```setTimeout(() => {
   console.log("Task 1");
   setTimeout(() => {
@@ -105,11 +107,13 @@ __JavaScript__ is single-threaded, meaning it executes one operation at a time. 
 #### Promises 
 
 > A __Promise__ is an object representing a value that may be available now, in the future, or never. It has three states:
+
 ```
   1. Pending – Initial state
   2. Fulfilled – The operation was successful
   3. Rejected – The operation failed
 ```
+Example:
 
   ``` const fetchData = new Promise((resolve, reject) => {
   setTimeout(() => {
@@ -126,6 +130,8 @@ fetchData
 #### async/await 
 
 > ***async/await*** simplifies working with promises, making asynchronous code look synchronous.
+
+Example:
 
 ```
 async function getData() {
