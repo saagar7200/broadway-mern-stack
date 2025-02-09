@@ -149,7 +149,7 @@ async function getData() {
 getData();
 ```
 ***Key Differences Between Promises and Async/Await:***
-
+> [!NOTE]
 > - `then/catch` is used with `Promises`, while `async/await` makes it easier to handle `asynchronous` operations with `try/catch`.
 > - `async/await` provides cleaner syntax, avoiding nested `.then()` calls.
 
@@ -172,12 +172,15 @@ getData();
 > `git init` - Initializes a new Git repository in the current directory.
 
 > `git status` - Shows the current state of the working directory and staging area.
-> 
+
 > `git add <file>` - Stages a file for commit.
-> 
+
 > `git commit -m "message"` - Saves changes with a descriptive message.
-> 
+
 > `git push` - Uploads local commits to the remote repository.
+
+- What is GitHub?
+  > GitHub is a web-based hosting service for Git repositories that allows developers to collaborate, contribute, and manage projects online.
 
 
 
