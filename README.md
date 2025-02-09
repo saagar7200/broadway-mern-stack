@@ -158,6 +158,24 @@ getData();
 
 #### Day-9: Git/Github Basics
 
+- What is Git?
+  > Git is a distributed version control system (VCS) that helps developers track changes in their code, collaborate with others, and manage project history efficiently.
+  
+- Why Use Git?
+  > - Tracks changes in code over time
+  > - Enables collaboration on projects
+  > - Provides a backup of the code
+  > - Allows developers to experiment with branches
+
+##### Basic Git Commands
+
+> `git init` - Initializes a new Git repository in the current directory.
+> `git status` - Shows the current state of the working directory and staging area.
+> `git add <file>` - Stages a file for commit.
+> `git commit -m "message"` - Saves changes with a descriptive message.
+> `git push` - Uploads local commits to the remote repository.
+
+
 
 
 
