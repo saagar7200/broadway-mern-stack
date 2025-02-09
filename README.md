@@ -148,8 +148,18 @@ async function getData() {
 
 getData();
 ```
+***Key Differences Between Promises and Async/Await:***
+
+> - `then/catch` is used with `Promises`, while `async/await` makes it easier to handle `asynchronous` operations with `try/catch`.
+> - `async/await` provides cleaner syntax, avoiding nested `.then()` calls.
 
 - fetch api
+
+
+#### Day-9: Git/Github Basics
+
+
+
 
 
 
