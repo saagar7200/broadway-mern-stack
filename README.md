@@ -162,13 +162,14 @@ getData();
   > Git is a distributed version control system (VCS) that helps developers track changes in their code, collaborate with others, and manage project history efficiently.
   
 - Why Use Git?
+  > [!TIP]
   > - Tracks changes in code over time
   > - Enables collaboration on projects
   > - Provides a backup of the code
   > - Allows developers to experiment with branches
 
 ##### Basic Git Commands
-
+> [!TIP]
 > `git init` - Initializes a new Git repository in the current directory.
 
 > `git status` - Shows the current state of the working directory and staging area.
