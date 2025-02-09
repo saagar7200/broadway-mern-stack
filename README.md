@@ -186,6 +186,7 @@ getData();
 ##### Common GitHub Actions
 > Creating a Repository – Click on "New Repository" on GitHub, give it a name, and follow the setup instructions.
 > Pushing Code to GitHub
+
       ```
         git remote add origin <repo-url>
         git branch -M main
