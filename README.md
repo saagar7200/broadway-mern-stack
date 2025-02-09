@@ -170,7 +170,7 @@ getData();
 ##### Basic Git Commands
 
 > `git init` - Initializes a new Git repository in the current directory.
-> 
+
 > `git status` - Shows the current state of the working directory and staging area.
 > 
 > `git add <file>` - Stages a file for commit.
