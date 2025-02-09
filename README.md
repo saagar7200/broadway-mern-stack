@@ -184,16 +184,17 @@ getData();
   > GitHub is a web-based hosting service for Git repositories that allows developers to collaborate, contribute, and manage projects online.
 
 ##### Common GitHub Actions
+
 > Creating a Repository – Click on "New Repository" on GitHub, give it a name, and follow the setup instructions.
 > Pushing Code to GitHub
 
-      ```
-        git remote add origin <repo-url>
+      ```git remote add origin <repo-url>
         git branch -M main
         git push -u origin main
       ```
 
 ##### Best Practices
+
   1. use meaningful `commit` messages
   2. Pull before pushing to avoid merge conflicts
   3. Work on feature branches instead of `main`
