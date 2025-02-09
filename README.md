@@ -89,9 +89,10 @@ __JavaScript__ is single-threaded, meaning it executes one operation at a time. 
 
 #### Callback hell (Pyramid of Doom)
 
-> __Callback hell__ occurs when multiple nested callbacks are used to handle asynchronous operations, making the code difficult to read and maintain. Example:
+> __Callback hell__ occurs when multiple nested callbacks are used to handle asynchronous operations, making the code difficult to read and maintain.
+> 
 > Exmple:
-Example:
+
 ```setTimeout(() => {
   console.log("Task 1");
   setTimeout(() => {
