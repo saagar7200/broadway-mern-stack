@@ -67,11 +67,74 @@ Control flow determines the execution order of statements in a program. JavaScri
 
 ### Day-7: Hoisting and Closures
 #### Hoisting
-Hoisting is JavaScript's behavior of moving function and variable declarations to the top of their scope before execution.
+__Hoisting__ is JavaScript's behavior of moving function and variable declarations to the top of their scope before execution.
 #### Closures in JavaScript
-A closure is a function that remembers the variables from its outer scope even after the outer function has finished executing.
+A __closure__ is a function that remembers the _variables_ from its outer scope even after the outer function has finished executing.
 - Why Use Closures?
    - Data Encapsulation (Private variables)
    - Maintaining State
    - Function Factories
+ 
+### Day-8: asynchronous jsvascript / promises and async/await
+#### Asynchronous programming
+
+__JavaScript__ is single-threaded, meaning it executes one operation at a time. __Asynchronous__ programming allows tasks to run in the background without blocking the main thread, improving performance and user experience.
+
+#### Callback hell (Pyramid of Doom)
+
+> __Callback hell__ occurs when multiple nested callbacks are used to handle asynchronous operations, making the code difficult to read and maintain. Example:
+
+`setTimeout(() => {
+  console.log("Task 1");
+  setTimeout(() => {
+    console.log("Task 2");
+    setTimeout(() => {
+      console.log("Task 3");
+    }, 1000);
+  }, 1000);
+}, 1000);
+`
+> This indentation pattern creates a ***"pyramid of doom,"*** which can be avoided using Promises or async/await.
+
+
+#### Promises 
+
+> A __Promise__ is an object representing a value that may be available now, in the future, or never. It has three states:
+  1. Pending – Initial state
+  2. Fulfilled – The operation was successful
+  3. Rejected – The operation failed
+
+  ` const fetchData = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("Data received");
+  }, 2000);
+});
+
+fetchData
+  .then((data) => console.log(data)) // "Data received"
+  .catch((error) => console.error(error));
+  
+  `
+     
+#### async/await 
+
+> ***async/await*** simplifies working with promises, making asynchronous code look synchronous.
+
+`
+async function getData() {
+  try {
+    let response = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+    let data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error("Error fetching data", error);
+  }
+}
+
+getData();
+`
+
+- fetch api
+
+
 
