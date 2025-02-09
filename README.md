@@ -181,6 +181,7 @@ getData();
 > `git push` - Uploads local commits to the remote repository.
 
 - What is GitHub?
+  
   > GitHub is a web-based hosting service for Git repositories that allows developers to collaborate, contribute, and manage projects online.
 
 ##### Common GitHub Actions
@@ -188,10 +189,11 @@ getData();
 > Creating a Repository – Click on "New Repository" on GitHub, give it a name, and follow the setup instructions.
 > Pushing Code to GitHub
 
-      ```git remote add origin <repo-url>
-        git branch -M main
-        git push -u origin main
-      ```
+  ```
+    git remote add origin <repo-url>
+    git branch -M main
+    git push -u origin main
+  ```
 
 ##### Best Practices
 
