@@ -52,10 +52,12 @@ A loop is a programming construct that repeats a block of code as long as a spec
 - what is conditional statements and Why/How to use.
   
 Conditional statements allow a program to make decisions based on different conditions.
+```
   - if
   - if...else
   - if..else if...else
   - switch case
+```
 - Understanding control flow.
 
 Control flow determines the execution order of statements in a program. JavaScript executes code line by line unless control structures (loops, conditions) alter the flow.
@@ -84,7 +86,7 @@ __JavaScript__ is single-threaded, meaning it executes one operation at a time. 
 
 > __Callback hell__ occurs when multiple nested callbacks are used to handle asynchronous operations, making the code difficult to read and maintain. Example:
 
-`setTimeout(() => {
+```setTimeout(() => {
   console.log("Task 1");
   setTimeout(() => {
     console.log("Task 2");
@@ -93,7 +95,7 @@ __JavaScript__ is single-threaded, meaning it executes one operation at a time. 
     }, 1000);
   }, 1000);
 }, 1000);
-`
+```
 > This indentation pattern creates a ***"pyramid of doom,"*** which can be avoided using Promises or async/await.
 
 
