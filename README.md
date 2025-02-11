@@ -255,7 +255,7 @@ TypeScript is an open-source programming language developed by Microsoft that bu
 
   ##### Basic TypeScript Concepts
 
-  ###### Types & Annotations:
+  ##### Types & Annotations:
 
   In TypeScript, we define types using annotations. This helps you specify the type of a variable when you declare it. For example:
 
@@ -267,52 +267,53 @@ TypeScript is an open-source programming language developed by Microsoft that bu
   let isActive: boolean = true;
   ```
 
-###### Functions with Type Annotations:
+##### Functions with Type Annotations:
 
 Functions can also have type annotations for the `parameters` and `return type`. This makes it clear what types the function `expects and returns`. we can use `void` as return type if function not returning anything:
 
-```
-function greet(name: string): string {
-  return `Hello, ${name}!`;
-}
-```
+  ```
+    function greet(name: string): string {
+      return `Hello, ${name}!`;
+    }
+  ```
 
-###### Interfaces:
+##### Interfaces:
 
 An `interface` in TypeScript is used to define the shape of an object, including its properties and their types. You can also define optional properties using the `? symbol`:
 
-```
-interface User {
-  name: string;
-  age: number;
-  email?: string; // Optional property
-}
-```
+  ```
+    interface User {
+      name: string;
+      age: number;
+      email?: string; // Optional property
+    }
+  ```
 
-###### Classes:
+##### Classes:
 
-```class Person {
-  constructor(public name: string, private age: number) {}
-  greet() {
-    return `Hello, my name is ${this.name}.`;
-  }
-}
-```
+    ```
+        class Person {
+          constructor(public name: string, private age: number) {}
+          greet() {
+            return `Hello, my name is ${this.name}.`;
+          }
+        }
+    ```
 
 
- ###### Generics:
+ ##### Generics:
 
  Generics allow us to create reusable and flexible components or functions that can work with any data type. You specify the type placeholder `<T>`:
 
-1. Generic Function 
+  1. Generic Function 
 
- ```
- function identity<T>(arg: T): T {
-    return arg;
-  }
-
-  let output = identity<string>("Hello TypeScript");
-```
+     ```
+       function identity<T>(arg: T): T {
+          return arg;
+        }
+      
+        let output = identity<string>("Hello TypeScript");
+    ```
 
 Generics can be used to create functions that work with arrays of any type:
 
@@ -403,7 +404,7 @@ fetchData<User>("https://api.example.com/user")
   .catch((error) => console.error(error));
 ```
 
-###### Enums: 
+##### Enums: 
 
 Enums provide a way to define a set of named constants. They can be numeric or string-based. By default, enums are numeric, starting from 0:
 
