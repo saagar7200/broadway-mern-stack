@@ -300,8 +300,41 @@ An `interface` in TypeScript is used to define the shape of an object, including
       }
   ```
 
+##### Union Types:
 
- ##### Generics:
+A Union Type allows us to specify a variable that can hold multiple types. This is done by separating the types with a pipe (|). A variable with a union type can be assigned a value of any of the specified types.
+
+```
+  function printId(id: number | string): void {
+    console.log(`The ID is: ${id}`);
+  }
+  
+  printId(101); // Works with number
+  printId("ABC123"); // Works with string
+```
+
+#####  Intersection Types:
+
+An Intersection Type combines multiple types into one. A variable with an intersection type must satisfy all the types in the intersection.
+
+   ```
+                interface A {
+                  name: string;
+                }
+                
+                interface B {
+                  age: number;
+                }
+                
+                type C = A & B; // Intersection of A and B
+                
+                const person: C = {
+                  name: "John",
+                  age: 30,
+                }
+  ```
+
+##### Generics:
 
  Generics allow us to create reusable and flexible components or functions that can work with any data type. You specify the type placeholder `<T>`:
 
