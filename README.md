@@ -203,8 +203,231 @@ getData();
   4. Use `.gitignore` to avoid committing unnecessary files
 
 
+#### Day-10: Git/Github Continued
+
+##### More Git Commands
+
+ > `git clone <repo-url>` - Clones a remote repository to the local machine.
+ 
+ >  `git pull` - Fetches the latest changes from the remote repository and merges them.
+
+ >  `git merge <branch> `- Merges changes from a specified branch into the current branch.
+
+ >  `git branch <branch-name>` - Creates a new branch.
+
+ >  `git checkout <branch-name>` - Switches to a different branch.
+
+ >  `git checkout -b <branch-name>` - Creates a new branch and switches to it.
+
+ >  `git branch` - Lists all branches in the repository.
+
+##### Branching Workflow
+
+1. Always create a new branch for each feature or bug fix.
+
+2. Use `git merge`  to integrate changes back into main.
+
+3. Delete merged branches using `git branch -d <branch-name>` to keep the repository clean.
+
+##### Pull Requests
+
+Pull requests (PRs) allow developers to review, discuss, and approve changes before merging them into the main branch.
 
 
+#### Day-11 Typescript
 
+- What is TypeScript?
+
+TypeScript is an open-source programming language developed by Microsoft that builds on JavaScript by adding static types. It compiles down to JavaScript and helps developers catch errors early in the development process.
+
+- Why Use TypeScript?
+
+  - Provides static typing, reducing runtime errors.
+
+  - Enhances code readability and maintainability.
+
+  - Supports modern JavaScript features with additional type safety.
+
+  - Offers powerful interfaces and generics for better code organization.
+
+  - Has great IDE support with autocompletion and error checking.
+
+
+  ##### Basic TypeScript Concepts
+
+  ###### Types & Annotations:
+
+  In TypeScript, we define types using annotations. This helps you specify the type of a variable when you declare it. For example:
+
+  ```
+  let name: string = "John";
+
+  let age: number = 30;
+
+  let isActive: boolean = true;
+  ```
+
+###### Functions with Type Annotations:
+
+Functions can also have type annotations for the `parameters` and `return type`. This makes it clear what types the function `expects and returns`. we can use `void` as return type if function not returning anything:
+
+```
+function greet(name: string): string {
+  return `Hello, ${name}!`;
+}
+```
+
+###### Interfaces:
+
+An `interface` in TypeScript is used to define the shape of an object, including its properties and their types. You can also define optional properties using the `? symbol`:
+
+```
+interface User {
+  name: string;
+  age: number;
+  email?: string; // Optional property
+}
+```
+
+###### Classes:
+
+```class Person {
+  constructor(public name: string, private age: number) {}
+  greet() {
+    return `Hello, my name is ${this.name}.`;
+  }
+}
+```
+
+
+ ###### Generics:
+
+ Generics allow us to create reusable and flexible components or functions that can work with any data type. You specify the type placeholder `<T>`:
+
+1. Generic Function 
+
+ ```
+ function identity<T>(arg: T): T {
+    return arg;
+  }
+
+  let output = identity<string>("Hello TypeScript");
+```
+
+Generics can be used to create functions that work with arrays of any type:
+
+Example:
+
+```
+function getFirstElement<T>(arr: T[]): T {
+  return arr[0];
+}
+```
+Using generics function:
+
+```
+const numbers = [1, 2, 3, 4];
+const firstNumber = getFirstElement(numbers);
+
+const strings = ["a", "b", "c"];
+const firstString = getFirstElement(strings); 
+
+console.log(firstNumber); // 1
+console.log(firstString); // "a"
+```
+
+2. Generic Interface
+
+We can use generics in interfaces to create reusable and flexible models for different types of data:
+
+```
+interface Response<T> {
+  status: number;
+  data: T;
+}
+
+const stringResponse: Response<string> = {
+  status: 200,
+  data: "Success"
+};
+
+const numberResponse: Response<number> = {
+  status: 200,
+  data: 123
+};
+
+console.log(stringResponse.data); // "Success"
+console.log(numberResponse.data); // 123
+```
+
+3. Generic Classes:
+
+Generics can also be used in classes to create reusable components that can handle different types of data:
+
+```
+class Box<T> {
+  constructor(public value: T) {}
+
+  getValue(): T {
+    return this.value;
+  }
+}
+
+const stringBox = new Box("Hello");
+console.log(stringBox.getValue()); // "Hello"
+
+const numberBox = new Box(123);
+console.log(numberBox.getValue()); // 123
+```
+
+4. Using Generics with Promises
+
+Generics can be applied to promises for better type safety:
+
+```
+function fetchData<T>(url: string): Promise<T> {
+  return fetch(url)
+    .then((response) => response.json())
+    .then((data) => data as T);
+}
+
+interface User {
+  name: string;
+  age: number;
+}
+
+fetchData<User>("https://api.example.com/user")
+  .then((user) => {
+    console.log(user.name); // Type-safe access
+  })
+  .catch((error) => console.error(error));
+```
+
+###### Enums: 
+
+Enums provide a way to define a set of named constants. They can be numeric or string-based. By default, enums are numeric, starting from 0:
+
+```
+enum Role {
+  Admin, // 0
+  User, // 1
+  Guest // 2
+}
+let myRole: Role = Role.Admin;
+```
+// 'myRole' will be of type 'Role' and set to 0 (Admin)
+
+For string-based enums, you can assign specific string values:
+
+```
+enum Role {
+  Admin = "Admin",
+  User = "User",
+  Guest = "Guest"
+}
+
+let myRole: Role = Role.Admin;
+```
+// 'myRole' will be 'Admin'
 
 
