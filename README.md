@@ -472,13 +472,34 @@ A type alias is a way to give a name to a type in TypeScript. It is commonly use
 Example:
 
 ```
-  ype ID = string | number; // Alias for a type that can be a string or number
+  type ID = string | number; // Alias for a type that can be a string or number
 
   let userId: ID = 123; // Valid
   userId = "ABC123"; // Valid
 ```
 
+-  Alias for Literal Types
+
+  We can create type aliases for literal types, which can be useful in narrowing down a variable to only specific values.
+
+  Example:
+
+  ```
+    type Status = "success" | "error" | "pending";
+
+    let currentStatus: Status = "success"; // Valid
+    currentStatus = "error"; // Valid
+    currentStatus = "completed"; // Error: Type '"completed"' is not assignable to type 'Status'.
+  ```
+
+
+
 - Alias for Generics
+  
+  Type aliases can also be used with generics to create more flexible and reusable types.
+  
+  Example:
+  
 ```
   type Pair<T> = [T, T]; // Alias for a pair of any type
 
