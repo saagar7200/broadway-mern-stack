@@ -465,3 +465,23 @@ let myRole: Role = Role.Admin;
 // 'myRole' will be 'Admin'
 
 
+##### Type Alias in TypeScript:
+
+A type alias is a way to give a name to a type in TypeScript. It is commonly used to define complex types or to create reusable types for better readability and maintainability. Type aliases are defined using the `type` keyword.
+
+Example:
+
+```
+  ype ID = string | number; // Alias for a type that can be a string or number
+
+  let userId: ID = 123; // Valid
+  userId = "ABC123"; // Valid
+```
+
+- Alias for Generics
+```
+  type Pair<T> = [T, T]; // Alias for a pair of any type
+
+  const numberPair: Pair<number> = [1, 2]; // Valid
+  const stringPair: Pair<string> = ["a", "b"]; // Valid
+```
