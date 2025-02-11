@@ -291,14 +291,14 @@ An `interface` in TypeScript is used to define the shape of an object, including
 
 ##### Classes:
 
-    ```
-        class Person {
-          constructor(public name: string, private age: number) {}
-          greet() {
-            return `Hello, my name is ${this.name}.`;
-          }
+  ```
+      class Person {
+        constructor(public name: string, private age: number) {}
+        greet() {
+          return `Hello, my name is ${this.name}.`;
         }
-    ```
+      }
+  ```
 
 
  ##### Generics:
@@ -313,7 +313,7 @@ An `interface` in TypeScript is used to define the shape of an object, including
         }
       
         let output = identity<string>("Hello TypeScript");
-    ```
+      ```
 
 Generics can be used to create functions that work with arrays of any type:
 
