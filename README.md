@@ -508,7 +508,8 @@ Example:
 ```
 
 
-#### Day-10: Git/Github Continued
+#### Day-11: Introduction to Node.js
+
 ##### Introduction to Node.js
 
 - What is Node js
@@ -597,15 +598,15 @@ The path module provides utilities for working with and manipulating file and di
 ***Key Methods in the path Module:***
 
 >[!NOTE]
->  path.join(): Combines multiple path segments into a single path.
+>  `path.join()`: Combines multiple path segments into a single path.
 >
->  path.resolve(): Resolves a sequence of paths into an absolute path.
+>  `path.resolve()`: Resolves a sequence of paths into an absolute path.
 >
->  path.basename(): Returns the last portion of a path (e.g., filename).
+>  `path.basename()`: Returns the last portion of a path (e.g., filename).
 >
->  path.extname(): Returns the file extension from a path.
+>  `path.extname()`: Returns the file extension from a path.
 >
->  path.dirname(): Returns the directory name from a path.
+> `path.dirname()`: Returns the directory name from a path.
 
 ```
 const path = require('path');
