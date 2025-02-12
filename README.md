@@ -513,17 +513,21 @@ Example:
 
 - What is Node js
   - Node.js is a runtime environment that allows you to run JavaScript outside the browser.
-  - It's built on Chrome's V8 JavaScript engine.
+  - It's built on Chrome’s V8 JavaScript engine, which compiles JavaScript into machine code for faster execution.
   - Node.js is used for building scalable network applications (web servers, APIs, etc.).
   - Asynchronous and event-driven architecture.
+  - It has access to file systems, network protocols, and databases—things traditionally done in server-side languages like PHP, Python, or Java.
 
 - Nodejs architecture and how it works.
 
 ***Key Points:***
 > [!NOTE] 
 > ***Non-blocking I/O:*** Node.js uses asynchronous, event-driven architecture to handle requests efficiently.
+>
+> Non-blocking I/O means that Node.js does not wait for tasks (like reading files or making network requests) to finish before moving on to the next task.
 > 
 > ***Single-threaded model:*** Unlike traditional web servers that create a new thread for each request, Node.js handles multiple requests using a single thread and an event loop.
+> This ***Single-threaded model*** makes Node.js very efficient when it comes to handling large numbers of concurrent connections without requiring much overhead.
 
 ##### NPM (Node Package Manager)
 
@@ -549,35 +553,70 @@ Example:
 - What is importance of modules?
 - Different types of node js built-in modules.
 
+Node.js provides many built-in modules that allow you to perform various tasks without having to install any external libraries. These modules include utilities for working with the file system, paths, and handling HTTP requests, among other things.
+
+>  ***File System (fs):*** for working with files.
+>  ***Path (path):*** for working with file and directory paths.
+>  ***HTTP (http):*** for creating simple web servers.
+
 ###### File System (fs) Module:
 
-Used to interact with the file system (read, write, delete and append to files).
+The fs module allows us to interact with the file system on our computer. It provides both synchronous and asynchronous methods for reading, writing, and manipulating files.
 
-***Key Concepts:***
+**Key Methods in the fs Module:***
 >[!NOTE]
->  Asynchronous file operations: fs.readFile(), fs.writeFile().
->  Sunchronous file operations: fs.readFileSync(), fs.writeFileSync().
+>  Asynchronous file operations: fs.readFile(), fs.writeFile(), fs.appendFile(), fs.unlink().
+>  Sunchronous file operations: fs.readFileSync(), fs.writeFileSync(), fs.appendFileSync(), fs.unlinkSync().
 > Asynchronous file operations are non-blocking.
 >  Sunchronous file operations are blocking.
+>
+>  Checking if a File Exists: fs.existsSync()
+
 
 Example: 
 Asynchronous file read operation.
 
 ```
-  // Read a file asynchronously
-  const fs = require('fs');
-  fs.readFile('example.txt', 'utf-8', (err, data) => {
-    if (err) throw err;
-    console.log(data);
-  });
+ // Asynchronous read
+fs.readFile('example.txt', 'utf8', (err, data) => {
+    if (err) {
+        console.log("Error reading the file:", err);
+        return;
+    }
+    console.log("File content:", data);
+});
 ```
 
 ##### Path Module:
 
-Helps in working with file and directory paths.
+The path module provides utilities for working with and manipulating file and directory paths. It helps ensure paths are correctly formatted and cross-platform compatible.
+
+***Key Methods in the path Module:***
+
+>[!NOTE]
+>  path.join(): Combines multiple path segments into a single path.
+>
+>  path.resolve(): Resolves a sequence of paths into an absolute path.
+>
+>  path.basename(): Returns the last portion of a path (e.g., filename).
+>
+>  path.extname(): Returns the file extension from a path.
+>
+>  path.dirname(): Returns the directory name from a path.
 
 ```
 const path = require('path');
-console.log(path.join(__dirname, 'folder', 'file.txt')); // Returns the full file path
+
+// Joining paths
+const filePath = path.join(__dirname, 'example.txt');
+console.log("Full file path:", filePath);
+
+// Getting the file name
+const fileName = path.basename(filePath);
+console.log("File name:", fileName);
+
+// Getting the file extension
+const extName = path.extname(filePath);
+console.log("File extension:", extName);
 ```
 
