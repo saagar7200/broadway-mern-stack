@@ -506,3 +506,42 @@ Example:
   const numberPair: Pair<number> = [1, 2]; // Valid
   const stringPair: Pair<string> = ["a", "b"]; // Valid
 ```
+
+
+#### Day-10: Git/Github Continued
+##### Introduction to Node.js
+
+- What is Node js
+  - Node.js is a runtime environment that allows you to run JavaScript outside the browser.
+  - It's built on Chrome's V8 JavaScript engine.
+  - Node.js is used for building scalable network applications (web servers, APIs, etc.).
+  - Asynchronous and event-driven architecture.
+
+[!info] Key Points:
+> ***Non-blocking I/O:*** Node.js uses asynchronous, event-driven architecture to handle requests efficiently.
+> 
+> ***Single-threaded model:*** Unlike traditional web servers that create a new thread for each request, Node.js handles multiple requests using a single thread and an event loop.
+
+##### NPM (Node Package Manager)
+
+- What is NPM?
+  - NPM is the default package manager for Node.js.
+  - It helps in installing and managing dependencies for your Node.js projects.
+ 
+[!info]  Key Concepts:
+
+> ***npm init:*** Initializes a new Node.js project.
+> ***package.json:*** The file that manages project metadata and dependencies.
+> ***Installing packages:*** Using `npm install <package-name>` to install packages.
+> ***Uninstalling packages:*** Using `npm uninstall <package-name>` to install packages.
+> ***npm update:*** Updates all packages or a specific package to the latest version.
+
+
+##### Introduction to Node.js custom modules and Built-in Modules
+- what is Module?
+- What is importance of modules?
+- Different types of node js built-in modules.
+
+###### File System (fs) Module:
+
+Used to interact with the file system (read, write, delete and append to files).
