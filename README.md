@@ -563,14 +563,17 @@ Node.js provides many built-in modules that allow you to perform various tasks w
 
 The fs module allows us to interact with the file system on our computer. It provides both synchronous and asynchronous methods for reading, writing, and manipulating files.
 
-**Key Methods in the fs Module:***
+***Key Methods in the fs Module:***
 >[!NOTE]
->  Asynchronous file operations: fs.readFile(), fs.writeFile(), fs.appendFile(), fs.unlink().
->  Sunchronous file operations: fs.readFileSync(), fs.writeFileSync(), fs.appendFileSync(), fs.unlinkSync().
+>  ***Asynchronous file operations:*** `fs.readFile()`, `fs.writeFile()`, `fs.appendFile()`, `fs.unlink()`.
+>
+>  ***Sunchronous file operations:*** `fs.readFileSync()`, `fs.writeFileSync()`, `fs.appendFileSync()`, `fs.unlinkSync()`.
+>
 > Asynchronous file operations are non-blocking.
+>
 >  Sunchronous file operations are blocking.
 >
->  Checking if a File Exists: fs.existsSync()
+>  ***Checking if a File Exists:*** `fs.existsSync()`
 
 
 Example: 
