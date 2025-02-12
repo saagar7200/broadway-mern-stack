@@ -517,7 +517,8 @@ Example:
   - Node.js is used for building scalable network applications (web servers, APIs, etc.).
   - Asynchronous and event-driven architecture.
 
-[!NOTE] Key Points:
+***Key Points:***
+> [!NOTE] 
 > ***Non-blocking I/O:*** Node.js uses asynchronous, event-driven architecture to handle requests efficiently.
 > 
 > ***Single-threaded model:*** Unlike traditional web servers that create a new thread for each request, Node.js handles multiple requests using a single thread and an event loop.
@@ -528,7 +529,8 @@ Example:
   - NPM is the default package manager for Node.js.
   - It helps in installing and managing dependencies for your Node.js projects.
  
-[!NOTE]Key Concepts:
+***Key Concepts:***
+> [!NOTE]
 > ***npm init:*** Initializes a new Node.js project.
 > 
 > ***package.json:*** The file that manages project metadata and dependencies.
