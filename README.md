@@ -517,6 +517,8 @@ Example:
   - Node.js is used for building scalable network applications (web servers, APIs, etc.).
   - Asynchronous and event-driven architecture.
 
+- Nodejs architecture and how it works.
+
 ***Key Points:***
 > [!NOTE] 
 > ***Non-blocking I/O:*** Node.js uses asynchronous, event-driven architecture to handle requests efficiently.
@@ -550,3 +552,32 @@ Example:
 ###### File System (fs) Module:
 
 Used to interact with the file system (read, write, delete and append to files).
+
+***Key Concepts:***
+>[!NOTE]
+>  Asynchronous file operations: fs.readFile(), fs.writeFile().
+>  Sunchronous file operations: fs.readFileSync(), fs.writeFileSync().
+> Asynchronous file operations are non-blocking.
+>  Sunchronous file operations are blocking.
+
+Example: 
+Asynchronous file read operation.
+
+```
+  // Read a file asynchronously
+  const fs = require('fs');
+  fs.readFile('example.txt', 'utf-8', (err, data) => {
+    if (err) throw err;
+    console.log(data);
+  });
+```
+
+##### Path Module:
+
+Helps in working with file and directory paths.
+
+```
+const path = require('path');
+console.log(path.join(__dirname, 'folder', 'file.txt')); // Returns the full file path
+```
+
