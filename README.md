@@ -255,7 +255,7 @@ TypeScript is an open-source programming language developed by Microsoft that bu
 
   ##### Basic TypeScript Concepts
 
-  ###### Types & Annotations:
+  ##### Types & Annotations:
 
   In TypeScript, we define types using annotations. This helps you specify the type of a variable when you declare it. For example:
 
@@ -267,52 +267,86 @@ TypeScript is an open-source programming language developed by Microsoft that bu
   let isActive: boolean = true;
   ```
 
-###### Functions with Type Annotations:
+##### Functions with Type Annotations:
 
 Functions can also have type annotations for the `parameters` and `return type`. This makes it clear what types the function `expects and returns`. we can use `void` as return type if function not returning anything:
 
-```
-function greet(name: string): string {
-  return `Hello, ${name}!`;
-}
-```
+  ```
+    function greet(name: string): string {
+      return `Hello, ${name}!`;
+    }
+  ```
 
-###### Interfaces:
+##### Interfaces:
 
 An `interface` in TypeScript is used to define the shape of an object, including its properties and their types. You can also define optional properties using the `? symbol`:
 
-```
-interface User {
-  name: string;
-  age: number;
-  email?: string; // Optional property
-}
-```
+  ```
+    interface User {
+      name: string;
+      age: number;
+      email?: string; // Optional property
+    }
+  ```
 
-###### Classes:
+##### Classes:
 
-```class Person {
-  constructor(public name: string, private age: number) {}
-  greet() {
-    return `Hello, my name is ${this.name}.`;
+  ```
+      class Person {
+        constructor(public name: string, private age: number) {}
+        greet() {
+          return `Hello, my name is ${this.name}.`;
+        }
+      }
+  ```
+
+##### Union Types:
+
+A Union Type allows us to specify a variable that can hold multiple types. This is done by separating the types with a pipe (|). A variable with a union type can be assigned a value of any of the specified types.
+
+```
+  function printId(id: number | string): void {
+    console.log(`The ID is: ${id}`);
   }
-}
+  
+  printId(101); // Works with number
+  printId("ABC123"); // Works with string
 ```
 
+#####  Intersection Types:
 
- ###### Generics:
+An Intersection Type combines multiple types into one. A variable with an intersection type must satisfy all the types in the intersection.
+
+   ```
+                interface A {
+                  name: string;
+                }
+                
+                interface B {
+                  age: number;
+                }
+                
+                type C = A & B; // Intersection of A and B
+                
+                const person: C = {
+                  name: "John",
+                  age: 30,
+                }
+  ```
+
+##### Generics:
 
  Generics allow us to create reusable and flexible components or functions that can work with any data type. You specify the type placeholder `<T>`:
 
-1. Generic Function 
+  1. Generic Function 
 
- ```
- function identity<T>(arg: T): T {
-    return arg;
-  }
-
-  let output = identity<string>("Hello TypeScript");
-```
+     ```
+       function identity<T>(arg: T): T {
+          return arg;
+        }
+      
+        let output = identity<string>("Hello TypeScript");
+      ```
 
 Generics can be used to create functions that work with arrays of any type:
 
@@ -403,7 +437,7 @@ fetchData<User>("https://api.example.com/user")
   .catch((error) => console.error(error));
 ```
 
-###### Enums: 
+##### Enums: 
 
 Enums provide a way to define a set of named constants. They can be numeric or string-based. By default, enums are numeric, starting from 0:
 
@@ -431,3 +465,44 @@ let myRole: Role = Role.Admin;
 // 'myRole' will be 'Admin'
 
 
+##### Type Alias in TypeScript:
+
+A type alias is a way to give a name to a type in TypeScript. It is commonly used to define complex types or to create reusable types for better readability and maintainability. Type aliases are defined using the `type` keyword.
+
+Example:
+
+```
+  type ID = string | number; // Alias for a type that can be a string or number
+
+  let userId: ID = 123; // Valid
+  userId = "ABC123"; // Valid
+```
+
+-  Alias for Literal Types
+
+  We can create type aliases for literal types, which can be useful in narrowing down a variable to only specific values.
+
+  Example:
+
+  ```
+    type Status = "success" | "error" | "pending";
+
+    let currentStatus: Status = "success"; // Valid
+    currentStatus = "error"; // Valid
+    currentStatus = "completed"; // Error: Type '"completed"' is not assignable to type 'Status'.
+  ```
+
+
+
+- Alias for Generics
+  
+  Type aliases can also be used with generics to create more flexible and reusable types.
+  
+  Example:
+  
+```
+  type Pair<T> = [T, T]; // Alias for a pair of any type
+
+  const numberPair: Pair<number> = [1, 2]; // Valid
+  const stringPair: Pair<string> = ["a", "b"]; // Valid
+```
