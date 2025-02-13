@@ -624,3 +624,150 @@ const extName = path.extname(filePath);
 console.log("File extension:", extName);
 ```
 
+
+#### Day-12: Node.js http Built-in Module
+
+##### Introduction to Node.js http Module
+
+The http module in Node.js is a built-in core module that allows developers to create and manage HTTP servers and clients. Since it is a core module, we do not need to install it separately using npm.
+
+##### What is the http Module?
+
+The http module enables Node.js to act as a web server, allowing it to listen for HTTP requests from clients (browsers, APIs, etc.) and send appropriate responses.
+
+##### Why Use the http Module?
+
+- It allows us to create lightweight web servers without external dependencies.
+- It provides control over request and response handling.
+- It is useful for learning and building low-level HTTP applications.
+
+##### Creating a Simple HTTP Server
+
+An HTTP server is a program that listens for incoming client requests (e.g., from a browser) and sends back an appropriate response.
+
+Example: Basic Server
+
+```
+const http = require("http");
+
+// Creating an HTTP server
+const server = http.createServer((req, res) => {
+    res.writeHead(200, { "Content-Type": "text/plain" }); // Set response headers
+    res.end("Hello, World!"); // Send response and end request
+});
+
+// Defining a port number
+const PORT = 5000;
+
+// Server listens on the defined port
+server.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}/`);
+});
+```
+
+> `http.createServer()` → Creates an HTTP server.
+>
+>  `Callback function (req, res)` → Handles incoming requests (req) and sends responses (res).
+>
+> `res.writeHead(200, {...})` → Sets the HTTP response status code (200 OK) and content type.
+>
+> `res.end("Hello, World!")` → Sends a response and ends the request.
+>
+> `server.listen(PORT, callback)` → Starts the server on port 5000.
+
+
+#####  Running the Server
+
+Save the file as server.js and run:
+
+```
+node server.js
+```
+
+
+##### Handling Different Routes
+
+A route is a URL path that a server handles differently. We can define multiple routes using req.url.
+
+```
+const http = require("http");
+
+const server = http.createServer((req, res) => {
+    res.writeHead(200, { "Content-Type": "text/html" });
+
+    switch (req.url) {
+        case "/":
+            res.end("<h1>Welcome to Home Page</h1>");
+            break;
+        case "/about":
+            res.end("<h1>About Us</h1>");
+            break;
+        default:
+            res.writeHead(404);
+            res.end("<h1>404 Not Found</h1>");
+            break;
+    }
+});
+
+const PORT = 5000;
+server.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+
+```
+
+
+##### Simple Node.js HTTP Server with Parsed URL and Handling Different Request Methods:
+
+This project is a basic Node.js HTTP server that handles multiple routes, logs incoming requests, and supports query parameters. It demonstrates how to use the built-in http, fs, and url modules to manage HTTP requests and responses.
+
+```
+const http = require("http");
+const fs = require("fs");
+const url = require("url");
+
+const myServer = http.createServer((req, res) => {
+    if (req.url === "/favicon.ico") return res.end(); // Ignore favicon requests
+
+    // Parse the incoming request URL
+    const parsedUrl = url.parse(req.url, true);
+    console.log(parsedUrl);
+
+    // Log request details to log.txt
+    const log = `New ${req.method} Req. ${Date.now()}: ${req.url} received\n`;
+    fs.appendFile("log.txt", log, (err) => {
+        if (err) console.error("Logging error:", err);
+    });
+
+    // Set default response header
+    res.writeHead(200, { "Content-Type": "text/plain" });
+
+    // Route handling using switch
+    switch (parsedUrl.pathname) {
+        case "/":
+            res.end("Home Page");
+            break;
+        case "/about":
+            const name = parsedUrl.query.name || "Guest";
+            const age = parsedUrl.query.age || "unknown";
+            res.end(`Hello ${name}. You are ${age} years old.`);
+            break;
+        case "/sign-up":
+            if (req.method === "GET") {
+                res.end("Sign up form");
+            } else if (req.method === "POST") {
+                res.end("Sign up success!");
+            }
+            break;
+        default:
+            res.writeHead(404);
+            res.end("404 Not Found");
+    }
+});
+
+// Start the server
+const PORT = 8000;
+myServer.listen(PORT, () => {
+    console.log(`Server started at: http://localhost:${PORT}`);
+});
+
+```
+
