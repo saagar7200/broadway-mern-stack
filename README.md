@@ -800,7 +800,7 @@ Why Use Express.js?
 -  Built on top of Node.js, leveraging asynchronous non-blocking I/O
 -  Ideal for building APIs, websites, and real-time applications.
 
-##### [Setting Up Express.js](/#setting-up-expressjs)
+##### Setting Up Express.js
 
 Step 1: Installing Node.js and Express.js
 -  Create a new project folder and run `npm init` to create a `package.json` file.
@@ -909,7 +909,7 @@ A resource could be a user or a product, identified by a URL like /users or /pro
 
 ##### Implementing the CRUD operations using REST principles:
 
-[Initialize Noddejs Project:](/broadway-mern-stack?tab=readme-ov-file#setting-up-express.js)
+[Initialize Noddejs Project:](#setting-up-expressjs)
 
 ```
 const express = require('express');
