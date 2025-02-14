@@ -52,7 +52,7 @@ A loop is a programming construct that repeats a block of code as long as a spec
 - what is conditional statements and Why/How to use.
   
 Conditional statements allow a program to make decisions based on different conditions.
-```
+```js
   - if
   - if...else
   - if..else if...else
@@ -63,7 +63,7 @@ Conditional statements allow a program to make decisions based on different cond
 Control flow determines the execution order of statements in a program. JavaScript executes code line by line unless control structures (loops, conditions) alter the flow.
   
 - Control transfer statements/keywords
-  ```
+  ```js
   - break;
   - continue;
   - return;
@@ -76,7 +76,7 @@ __Hoisting__ is JavaScript's behavior of moving function and variable declaratio
 
 A __closure__ is a function that remembers the _variables_ from its outer scope even after the outer function has finished executing.
 - Why Use Closures?
-  ```
+  ```js
    - Data Encapsulation (Private variables)
    - Maintaining State
    - Function Factories
@@ -93,7 +93,8 @@ __JavaScript__ is single-threaded, meaning it executes one operation at a time. 
 > 
 > Exmple:
 
-```setTimeout(() => {
+```js
+setTimeout(() => {
   console.log("Task 1");
   setTimeout(() => {
     console.log("Task 2");
@@ -110,14 +111,15 @@ __JavaScript__ is single-threaded, meaning it executes one operation at a time. 
 
 > A __Promise__ is an object representing a value that may be available now, in the future, or never. It has three states:
 
-```
+```js
   1. Pending – Initial state
   2. Fulfilled – The operation was successful
   3. Rejected – The operation failed
 ```
 Example:
 
-  ``` const fetchData = new Promise((resolve, reject) => {
+  ```js
+const fetchData = new Promise((resolve, reject) => {
   setTimeout(() => {
     resolve("Data received");
   }, 2000);
@@ -135,7 +137,7 @@ fetchData
 
 Example:
 
-```
+```js
 async function getData() {
   try {
     let response = await fetch("https://jsonplaceholder.typicode.com/posts/1");
@@ -189,7 +191,7 @@ getData();
 > Creating a Repository – Click on "New Repository" on GitHub, give it a name, and follow the setup instructions.
 > Pushing Code to GitHub
 
-  ```
+  ```js
     git remote add origin <repo-url>
     git branch -M main
     git push -u origin main
@@ -259,7 +261,7 @@ TypeScript is an open-source programming language developed by Microsoft that bu
 
   In TypeScript, we define types using annotations. This helps you specify the type of a variable when you declare it. For example:
 
-  ```
+  ```ts
   let name: string = "John";
 
   let age: number = 30;
@@ -271,7 +273,7 @@ TypeScript is an open-source programming language developed by Microsoft that bu
 
 Functions can also have type annotations for the `parameters` and `return type`. This makes it clear what types the function `expects and returns`. we can use `void` as return type if function not returning anything:
 
-  ```
+  ```ts
     function greet(name: string): string {
       return `Hello, ${name}!`;
     }
@@ -281,7 +283,7 @@ Functions can also have type annotations for the `parameters` and `return type`.
 
 An `interface` in TypeScript is used to define the shape of an object, including its properties and their types. You can also define optional properties using the `? symbol`:
 
-  ```
+  ```ts
     interface User {
       name: string;
       age: number;
@@ -291,7 +293,7 @@ An `interface` in TypeScript is used to define the shape of an object, including
 
 ##### Classes:
 
-  ```
+  ```ts
       class Person {
         constructor(public name: string, private age: number) {}
         greet() {
@@ -304,7 +306,7 @@ An `interface` in TypeScript is used to define the shape of an object, including
 
 A Union Type allows us to specify a variable that can hold multiple types. This is done by separating the types with a pipe (|). A variable with a union type can be assigned a value of any of the specified types.
 
-```
+```ts
   function printId(id: number | string): void {
     console.log(`The ID is: ${id}`);
   }
@@ -317,7 +319,7 @@ A Union Type allows us to specify a variable that can hold multiple types. This 
 
 An Intersection Type combines multiple types into one. A variable with an intersection type must satisfy all the types in the intersection.
 
-   ```
+   ```ts
                 interface A {
                   name: string;
                 }
@@ -340,7 +342,7 @@ An Intersection Type combines multiple types into one. A variable with an inters
 
   1. Generic Function 
 
-     ```
+     ```ts
        function identity<T>(arg: T): T {
           return arg;
         }
@@ -352,14 +354,14 @@ Generics can be used to create functions that work with arrays of any type:
 
 Example:
 
-```
+```ts
 function getFirstElement<T>(arr: T[]): T {
   return arr[0];
 }
 ```
 Using generics function:
 
-```
+```ts
 const numbers = [1, 2, 3, 4];
 const firstNumber = getFirstElement(numbers);
 
@@ -374,7 +376,7 @@ console.log(firstString); // "a"
 
 We can use generics in interfaces to create reusable and flexible models for different types of data:
 
-```
+```ts
 interface Response<T> {
   status: number;
   data: T;
@@ -398,7 +400,7 @@ console.log(numberResponse.data); // 123
 
 Generics can also be used in classes to create reusable components that can handle different types of data:
 
-```
+```ts
 class Box<T> {
   constructor(public value: T) {}
 
@@ -418,7 +420,7 @@ console.log(numberBox.getValue()); // 123
 
 Generics can be applied to promises for better type safety:
 
-```
+```ts
 function fetchData<T>(url: string): Promise<T> {
   return fetch(url)
     .then((response) => response.json())
@@ -441,7 +443,7 @@ fetchData<User>("https://api.example.com/user")
 
 Enums provide a way to define a set of named constants. They can be numeric or string-based. By default, enums are numeric, starting from 0:
 
-```
+```ts
 enum Role {
   Admin, // 0
   User, // 1
@@ -453,7 +455,7 @@ let myRole: Role = Role.Admin;
 
 For string-based enums, you can assign specific string values:
 
-```
+```ts
 enum Role {
   Admin = "Admin",
   User = "User",
@@ -471,7 +473,7 @@ A type alias is a way to give a name to a type in TypeScript. It is commonly use
 
 Example:
 
-```
+```ts
   type ID = string | number; // Alias for a type that can be a string or number
 
   let userId: ID = 123; // Valid
@@ -484,7 +486,7 @@ Example:
 
   Example:
 
-  ```
+  ```js
     type Status = "success" | "error" | "pending";
 
     let currentStatus: Status = "success"; // Valid
@@ -500,7 +502,7 @@ Example:
   
   Example:
   
-```
+```js
   type Pair<T> = [T, T]; // Alias for a pair of any type
 
   const numberPair: Pair<number> = [1, 2]; // Valid
@@ -580,7 +582,7 @@ The fs module allows us to interact with the file system on our computer. It pro
 Example: 
 Asynchronous file read operation.
 
-```
+```js
  // Asynchronous read
 fs.readFile('example.txt', 'utf8', (err, data) => {
     if (err) {
@@ -608,7 +610,7 @@ The path module provides utilities for working with and manipulating file and di
 >
 > `path.dirname()`: Returns the directory name from a path.
 
-```
+```js
 const path = require('path');
 
 // Joining paths
@@ -647,7 +649,7 @@ An HTTP server is a program that listens for incoming client requests (e.g., fro
 
 Example: Basic Server
 
-```
+```js
 const http = require("http");
 
 // Creating an HTTP server
@@ -680,7 +682,7 @@ server.listen(PORT, () => {
 
 Save the file as server.js and run:
 
-```
+```js
 node server.js
 ```
 
@@ -689,7 +691,7 @@ node server.js
 
 A route is a URL path that a server handles differently. We can define multiple routes using req.url.
 
-```
+```js
 const http = require("http");
 
 const server = http.createServer((req, res) => {
@@ -719,7 +721,7 @@ server.listen(PORT, () => console.log(`Server running on http://localhost:${PORT
 
 This project is a basic Node.js HTTP server that handles multiple routes, logs incoming requests, and supports query parameters. It demonstrates how to use the built-in http, fs, and url modules to manage HTTP requests and responses.
 
-```
+```js
 const http = require("http");
 const fs = require("fs");
 const url = require("url");
@@ -807,7 +809,7 @@ Step 1: Installing Node.js and Express.js
 
 Install Express using:
 
-```
+```js
   npm install express --save
   or
   npm i express
@@ -820,7 +822,7 @@ Step 2: Create a Basic Express Server
 -  Create a file named `index.js`.
 -  Write the following code to set up a basic Express server:
 
-```
+```js
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -845,7 +847,7 @@ app.listen(port, () => {
 
  Example of Different Routes:
 
- ```
+ ```js
 app.get('/', (req, res) => {
   res.send('Welcome to the Home Page!');
 });
@@ -870,7 +872,7 @@ Sending JSON Responses
 
 Example:
 
-```
+```js
 app.get('/user', (req, res) => {
   const user = { name: 'John', age: 25 };
   res.json(user);
@@ -887,22 +889,24 @@ Other supported response:
 5. `res.sendFile()` =>Send a file as an octet stream. 
 
 ##### RESTful API
-Introduction to RESTful APIs
 
--  REST (Representational State Transfer) is an architectural style for designing networked applications. It relies on stateless, client-server communication using standard HTTP methods (GET, POST, PUT, DELETE).
+**Introduction to RESTful APIs**
+
+-  **REST (Representational State Transfer)** is an architectural style for designing networked applications. It relies on stateless, client-server communication using standard HTTP methods (GET, POST, PUT, DELETE).
 -  A RESTful API is an API that follows REST principles.
 
-Principles of REST:
+**Principles of REST:**
+
 - ***Stateless:*** Each request from a client must contain all the information the server needs to fulfill the request (no session state).
 -  ***Client-Server:*** The client (browser) interacts with the server via HTTP requests.
 -  ***Uniform Interface:*** Resources are identified by URLs, and standard HTTP methods are used to perform actions.
 -  ***CRUD Operations:***
-  1. Create: POST
-  2.  Read: GET
-  3.  Update: PUT or PATCH
-  4.  Delete: DELETE
+    1. Create: POST
+    2.  Read: GET
+    3.  Update: PUT or PATCH
+    4.  Delete: DELETE
 
-Resource Example:
+**Resource Example:**
 
 A resource could be a user or a product, identified by a URL like /users or /products.
 
@@ -911,11 +915,12 @@ A resource could be a user or a product, identified by a URL like /users or /pro
 
 [Initialize Noddejs Project:](#setting-up-expressjs)
 
-```
+Below is an example of how to set up an Express server. You can use **[Mockaroo](https://www.mockaroo.com/)** to generate mock user data for your project.
+```js
 const express = require('express');
 const app = express();
 //  prepare array of json user objects file name users.json
-or generate mockdata from [mockaroo](https://www.mockaroo.com/)
+// or generate mockdata from mockaroo by above given link
 const Users = require('./users.json') 
 const port = 3000;
 
@@ -934,7 +939,7 @@ app.listen(port, () => {
    
    Example:
 
-   ```
+   ```js
    // get all users
     app.get('/users',(req,res)=>{
     return res.json(Users)
@@ -947,7 +952,7 @@ app.listen(port, () => {
 
   Example:
 
-  ```
+  ```js
     // get user by id
     app.get('/users/:id',(req,res)=>{
 
@@ -964,7 +969,7 @@ app.listen(port, () => {
 
     Example:
 
-    ```
+    ```js
     app.post('/users',(req,res)=>{
     const body = req.body;
     console.log(body)
@@ -985,7 +990,7 @@ app.listen(port, () => {
 
    Example:
 
-   ```
+   ```js
    app.patch('/users/:id',(req,res)=>{
 
     res.json({
@@ -1000,7 +1005,7 @@ app.listen(port, () => {
 
    Example:
 
-   ```
+   ```js
    app.delete('/users/:id',(req,res)=>{
 
     res.json({
