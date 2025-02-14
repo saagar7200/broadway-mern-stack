@@ -772,9 +772,10 @@ myServer.listen(PORT, () => {
 ```
 
 
-#### Day-13:ExpressJs
+#### Day-13: ExpressJs
 
 - ***Express.js*** is a minimal and flexible web application framework for Node.js. It simplifies building web applications and APIs by providing essential features like routing, middleware, and handling HTTP requests.
+  
 - It is used to build server-side applications by handling routing, requests, responses, and middleware.
 
 
@@ -782,10 +783,15 @@ myServer.listen(PORT, () => {
 > [!NOTE]
 >
 >  Fast and minimalistic
+> 
 >  Middleware support
+> 
 >  Template engines
+> 
 >  Routing
+> 
 >  Easy integration with databases
+> 
 >  Scalable
 
 
@@ -794,7 +800,7 @@ Why Use Express.js?
 -  Built on top of Node.js, leveraging asynchronous non-blocking I/O
 -  Ideal for building APIs, websites, and real-time applications.
 
-##### [Setting Up Express.js](/broadway-mern-stack?tab=readme-ov-file#setting-up-express.js)
+##### [Setting Up Express.js](/#setting-up-expressjs)
 
 Step 1: Installing Node.js and Express.js
 -  Create a new project folder and run `npm init` to create a `package.json` file.
