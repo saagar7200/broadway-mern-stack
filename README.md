@@ -914,7 +914,9 @@ A resource could be a user or a product, identified by a URL like /users or /pro
 ```
 const express = require('express');
 const app = express();
-const Users = require('./users.json') //  prepare array of json user objects file name users.json or generate mockdata from [mockaroo](https://www.mockaroo.com/)
+//  prepare array of json user objects file name users.json
+or generate mockdata from [mockaroo](https://www.mockaroo.com/)
+const Users = require('./users.json') 
 const port = 3000;
 
 // Middleware to parse JSON request bodies
