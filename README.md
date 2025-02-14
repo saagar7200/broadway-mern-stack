@@ -771,3 +771,302 @@ myServer.listen(PORT, () => {
 
 ```
 
+
+#### Day-13: ExpressJs
+
+- ***Express.js*** is a minimal and flexible web application framework for Node.js. It simplifies building web applications and APIs by providing essential features like routing, middleware, and handling HTTP requests.
+  
+- It is used to build server-side applications by handling routing, requests, responses, and middleware.
+
+
+***Key Features:***
+> [!NOTE]
+>
+>  Fast and minimalistic
+> 
+>  Middleware support
+> 
+>  Template engines
+> 
+>  Routing
+> 
+>  Easy integration with databases
+> 
+>  Scalable
+
+
+Why Use Express.js?
+-  Reduces the complexity of handling raw HTTP requests and responses in Node.js
+-  Built on top of Node.js, leveraging asynchronous non-blocking I/O
+-  Ideal for building APIs, websites, and real-time applications.
+
+##### Setting Up Express.js
+
+Step 1: Installing Node.js and Express.js
+-  Create a new project folder and run `npm init` to create a `package.json` file.
+
+Install Express using:
+
+```
+  npm install express --save
+  or
+  npm i express
+  or
+  pnpm add express
+```
+
+Step 2: Create a Basic Express Server
+
+-  Create a file named `index.js`.
+-  Write the following code to set up a basic Express server:
+
+```
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => {
+  res.send('Hello, Express!');
+});
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+
+```
+
+>  `express()` creates an Express application.
+>  `app.get()` defines a route to handle ***GET*** requests.
+>  `app.listen()` starts the server and listens for requests on a specified port.
+
+##### Understanding Routing:
+
+ Routing in Express is how we handle HTTP requests to specific paths and HTTP methods (GET, POST, etc.).
+
+ Example of Different Routes:
+
+ ```
+app.get('/', (req, res) => {
+  res.send('Welcome to the Home Page!');
+});
+
+app.post('/submit', (req, res) => {
+  res.send('Form submitted successfully!');
+});
+
+app.put('/update', (req, res) => {
+  res.send('Data updated!');
+});
+
+app.delete('/delete', (req, res) => {
+  res.send('Data deleted!');
+});
+
+```
+
+Sending JSON Responses
+
+ Express allows sending JSON data as a response using res.json().
+
+Example:
+
+```
+app.get('/user', (req, res) => {
+  const user = { name: 'John', age: 25 };
+  res.json(user);
+});
+
+```
+
+Other supported response:
+
+1. `res.end()` => End the response process.
+2. `res.redirect()` => Redirect a request.
+3. `res.render()` => Render a view template.
+4. `res.send()` => Send a response of various type.
+5. `res.sendFile()` =>Send a file as an octet stream. 
+
+##### RESTful API
+Introduction to RESTful APIs
+
+-  REST (Representational State Transfer) is an architectural style for designing networked applications. It relies on stateless, client-server communication using standard HTTP methods (GET, POST, PUT, DELETE).
+-  A RESTful API is an API that follows REST principles.
+
+Principles of REST:
+- ***Stateless:*** Each request from a client must contain all the information the server needs to fulfill the request (no session state).
+-  ***Client-Server:*** The client (browser) interacts with the server via HTTP requests.
+-  ***Uniform Interface:*** Resources are identified by URLs, and standard HTTP methods are used to perform actions.
+-  ***CRUD Operations:***
+  1. Create: POST
+  2.  Read: GET
+  3.  Update: PUT or PATCH
+  4.  Delete: DELETE
+
+Resource Example:
+
+A resource could be a user or a product, identified by a URL like /users or /products.
+
+
+##### Implementing the CRUD operations using REST principles:
+
+[Initialize Noddejs Project:](#setting-up-expressjs)
+
+```
+const express = require('express');
+const app = express();
+const Users = require('./users.json') //  prepare array of json user objects file name users.json or generate mockdata from [mockaroo](https://www.mockaroo.com/)
+const port = 3000;
+
+// Middleware to parse JSON request bodies
+app.use(express.json());
+
+
+// Routes and endpoints will go here
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+```
+
+1. GET request.
+   
+   Example:
+
+   ```
+   // get all users
+    app.get('/users',(req,res)=>{
+    return res.json(Users)
+    })
+   
+   ```
+
+2. GET by id:
+  - Dynamic route
+
+  Example:
+
+  ```
+    // get user by id
+    app.get('/users/:id',(req,res)=>{
+
+      const userId = Number(req.params.id)
+
+      const user = Users.find((user) => user.id === userId)
+
+      return res.json(user)
+
+    })
+  ```
+
+3.  POST Request
+
+    Example:
+
+    ```
+    app.post('/users',(req,res)=>{
+    const body = req.body;
+    console.log(body)
+
+    Users.push({...body,id:Users.length + 1});
+
+    fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),(err,data)=>{
+       return res.json({
+            status:'success',
+            message:'User created successfully',
+            id:Users.length
+        })
+    })
+    ```
+
+4. PATCH Request:
+   -  Update user
+
+   Example:
+
+   ```
+   app.patch('/users/:id',(req,res)=>{
+
+    res.json({
+        status:'pending'
+    })
+
+    })
+   ```
+
+6. DELETE Request:
+   -  Delete/Remove user
+
+   Example:
+
+   ```
+   app.delete('/users/:id',(req,res)=>{
+
+    res.json({
+        status:'pending'
+    })
+
+    })
+   ```
+
+##### Grouping same routes endpoints with different methods:
+
+##### ***app.route()***
+
+`app.route()` is a convenient method in Express that allows us to define multiple HTTP request handlers (GET, POST, PUT, PATCH, DELETE) for the same route path in a clean and organized way.
+Rather than writing multiple lines like `app.get()`, `app.post()`, etc., we can use `app.route()` to chain different HTTP methods for the same route.
+
+This is particularly useful when us want to handle multiple types of requests (e.g., GET, POST, PATCH, DELETE) for a single resource but don't want to repeat the route path each time.
+
+***Syntax of app.route():***
+
+```js
+app.route('/path')
+  .get((req, res) => {
+    // Handle GET request
+  })
+  .post((req, res) => {
+    // Handle POST request
+  })
+  .put((req, res) => {
+    // Handle PUT request
+  })
+  .delete((req, res) => {
+    // Handle DELETE request
+  });
+```
+
+
+Benefits of app.route():
+
+-  Grouping: It groups all route handlers for a specific URL path, making your code cleaner and easier to maintain.
+-  Chainable: We can chain multiple methods for the same route, reducing repetitive code.
+
+
+Example of app.route():
+
+```js
+app.route('/users/:id').get((req,res)=>{
+
+    const userId = Number(req.params.id)
+
+    const user = Users.find((user) => user.id === userId)
+
+    return res.json(user)
+
+}).patch((req,res)=>{
+
+    return res.json({
+        status:'pending'
+    })
+}).delete((req,res)=>{
+
+    return res.json({
+        status:'pending'
+    })
+
+})
+```
+
+
+
+
