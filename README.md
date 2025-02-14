@@ -1008,5 +1008,65 @@ app.listen(port, () => {
     })
    ```
 
+##### Grouping same routes endpoints with different methods:
+
+##### ***app.route()***
+
+`app.route()` is a convenient method in Express that allows us to define multiple HTTP request handlers (GET, POST, PUT, PATCH, DELETE) for the same route path in a clean and organized way.
+Rather than writing multiple lines like `app.get()`, `app.post()`, etc., we can use `app.route()` to chain different HTTP methods for the same route.
+
+This is particularly useful when us want to handle multiple types of requests (e.g., GET, POST, PATCH, DELETE) for a single resource but don't want to repeat the route path each time.
+
+***Syntax of app.route():***
+
+```js
+app.route('/path')
+  .get((req, res) => {
+    // Handle GET request
+  })
+  .post((req, res) => {
+    // Handle POST request
+  })
+  .put((req, res) => {
+    // Handle PUT request
+  })
+  .delete((req, res) => {
+    // Handle DELETE request
+  });
+```
+
+
+Benefits of app.route():
+
+-  Grouping: It groups all route handlers for a specific URL path, making your code cleaner and easier to maintain.
+-  Chainable: We can chain multiple methods for the same route, reducing repetitive code.
+
+
+Example of app.route():
+
+```js
+app.route('/users/:id').get((req,res)=>{
+
+    const userId = Number(req.params.id)
+
+    const user = Users.find((user) => user.id === userId)
+
+    return res.json(user)
+
+}).patch((req,res)=>{
+
+    return res.json({
+        status:'pending'
+    })
+}).delete((req,res)=>{
+
+    return res.json({
+        status:'pending'
+    })
+
+})
+```
+
+
 
 
