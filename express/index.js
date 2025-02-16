@@ -9,26 +9,45 @@ const app = express();
 const PORT = 8000
 
 // to parse req.body
-app.use(express.urlencoded({extended:false}))
+app.use(express.urlencoded({extended:false}));
+// app.use(express.json())
+
+app.use((req,res,next)=>{
+    console.log('middleware 1');
+
+    req.user = 'User 1'
+
+//    return res.end('Ended by middleware 1')
+
+
+    next()
+})
+
+app.use((req,res,next)=>{
+    console.log('middleware 2');
+
+    console.log(req.user)
+
+    next('Error')
+})
+
+
+
+
+
+
+
+
+
 
 // get all users
 app.get('/users',(req,res)=>{
 
-    return res.json(Users)
+    return res.status(200).json(Users)
 
 })
 
-// get user by id
-// app.get('/users/:id',(req,res)=>{
-//     console.log(req.params.id)
 
-//     const userId = Number(req.params.id)
-
-//     const user = Users.find((user) => user.id === userId)
-
-//     return res.json(user)
-
-// })
 
 app.post('/users',(req,res)=>{
     const body = req.body;
@@ -37,7 +56,7 @@ app.post('/users',(req,res)=>{
     Users.push({...body,id:Users.length + 1});
 
     fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),(err,data)=>{
-       return res.json({
+       return res.status(201).json({
             status:'success',
             message:'User created successfully',
             id:Users.length
@@ -48,21 +67,7 @@ app.post('/users',(req,res)=>{
 
 })
 
-app.patch('/users/:id',(req,res)=>{
 
-    res.json({
-        status:'pending'
-    })
-
-})
-
-app.delete('/users/:id',(req,res)=>{
-
-    res.json({
-        status:'pending'
-    })
-
-})
 
 app.route('/users/:id').get((req,res)=>{
     console.log(req.params.id)
@@ -71,20 +76,83 @@ app.route('/users/:id').get((req,res)=>{
 
     const user = Users.find((user) => user.id === userId)
 
-    return res.json(user)
+    if(!user){
+        return res.status(404).json({
+            status:'Not found',
+            message:'User not found'
+        })
+    }
+
+    return res.status(200).json(user)
 
 }).patch((req,res)=>{
 
+    const id = Number(req.params.id)
 
+    const body = req.body;
 
-    return res.json({
-        status:'pending'
+    const userIndex = Users.findIndex(user => user.id === id);
+
+    if(userIndex === -1){
+
+        return res.status(404).json({
+            status:'Fail',
+            message:'User not found.'
+        })
+
+    }
+
+    const user = Users[userIndex]
+
+    const updatedUser = {
+        ...user,
+        ...body,
+    }
+
+    Users[userIndex] = updatedUser;
+
+    fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),(err,data) =>{
+        return res.status(201).json({
+            status:'success',
+            message:'User updated'
+        })
     })
+
+   
 
 }).delete((req,res)=>{
 
-    return res.json({
-        status:'pending'
+    const id = Number(req.params.id);
+
+    const index = Users.findIndex(user => user.id === id);
+
+    if(index === -1){
+        return res.status(404).json({
+            status:'Fail',
+            message:'User not found.'
+        })
+    }
+
+    Users.splice(index,1);
+
+    fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),()=>{
+        return res.status(200).json({
+            status:'Success',
+            message:'User Deleted.'
+        })
+    })
+
+    
+
+})
+
+app.use((err,req,res,next)=>{
+
+    const statusCode = err.statusCode || 500
+
+    res.status(statusCode).json({
+        status:'Error',
+        message:err.message || 'Something went wrong'
     })
 
 })
@@ -94,3 +162,12 @@ app.route('/users/:id').get((req,res)=>{
 app.listen(PORT,()=>{
     console.log(`Sever started at port: http://localhost:${PORT}`)
 })
+
+
+
+
+
+
+
+
+

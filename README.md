@@ -991,13 +991,42 @@ app.listen(port, () => {
    Example:
 
    ```js
-   app.patch('/users/:id',(req,res)=>{
+   app.patch((req,res)=>{
 
-    res.json({
-        status:'pending'
+    const id = Number(req.params.id)
+
+    const body = req.body;
+
+    const userIndex = Users.findIndex(user => user.id === id);
+
+    if(userIndex === -1){
+
+        return res.status(404).json({
+            status:'Fail',
+            message:'User not found.'
+        })
+
+    }
+
+    const user = Users[userIndex]
+
+    const updatedUser = {
+        ...user,
+        ...body,
+    }
+
+    Users[userIndex] = updatedUser;
+
+    fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),(err,data) =>{
+        return res.status(201).json({
+            status:'success',
+            message:'User updated'
+        })
     })
 
-    })
+   
+
+})
    ```
 
 6. DELETE Request:
@@ -1006,13 +1035,31 @@ app.listen(port, () => {
    Example:
 
    ```js
-   app.delete('/users/:id',(req,res)=>{
+   app.delete((req,res)=>{
 
-    res.json({
-        status:'pending'
+    const id = Number(req.params.id);
+
+    const index = Users.findIndex(user => user.id === id);
+
+    if(index === -1){
+        return res.status(404).json({
+            status:'Fail',
+            message:'User not found.'
+        })
+    }
+
+    Users.splice(index,1);
+
+    fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),()=>{
+        return res.status(200).json({
+            status:'Success',
+            message:'User Deleted.'
+        })
     })
 
-    })
+    
+
+})
    ```
 
 ##### Grouping same routes endpoints with different methods:
@@ -1062,9 +1109,39 @@ app.route('/users/:id').get((req,res)=>{
 
 }).patch((req,res)=>{
 
-    return res.json({
-        status:'pending'
+    const id = Number(req.params.id)
+
+    const body = req.body;
+
+    const userIndex = Users.findIndex(user => user.id === id);
+
+    if(userIndex === -1){
+
+        return res.status(404).json({
+            status:'Fail',
+            message:'User not found.'
+        })
+
+    }
+
+    const user = Users[userIndex]
+
+    const updatedUser = {
+        ...user,
+        ...body,
+    }
+
+    Users[userIndex] = updatedUser;
+
+    fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),(err,data) =>{
+        return res.status(201).json({
+            status:'success',
+            message:'User updated'
+        })
     })
+
+   
+
 }).delete((req,res)=>{
 
     return res.json({
