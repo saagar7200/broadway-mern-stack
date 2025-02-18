@@ -3,78 +3,110 @@
 const express = require('express');
 const Users = require('./MOCK_DATA.json')
 const fs = require('fs')
-
+const mongoose = require('mongoose');
+const DB_URI = 'mongodb://127.0.0.1:27017/crud-users'
 
 const app = express();
 const PORT = 8000
+
+
+// connect db
+mongoose.connect(DB_URI)
+.then(()=>{console.log('Database connected.')})
+.catch((err)=>console.log(err))
+
+// defining user schema
+const userSchema = new mongoose.Schema({
+    name:{
+        type:String,
+        required:[true,'Name is required'],
+        trim:true
+    },
+    email:{
+        type:String,
+        required:[true,'Name is required'],
+        unique:[true,'User already exists with provided email']
+    },
+    age:{
+        type:Number,
+        required:false
+    }
+})
+
+const User = mongoose.model('user',userSchema)
+
+
+
+
 
 // to parse req.body
 app.use(express.urlencoded({extended:false}));
 // app.use(express.json())
 
-app.use((req,res,next)=>{
-    console.log('middleware 1');
-
-    req.user = 'User 1'
-
-//    return res.end('Ended by middleware 1')
-
-
-    next()
-})
-
-app.use((req,res,next)=>{
-    console.log('middleware 2');
-
-    console.log(req.user)
-
-    next('Error')
-})
-
-
-
-
-
-
-
 
 
 
 // get all users
-app.get('/users',(req,res)=>{
+app.get('/users',async (req,res)=>{
 
-    return res.status(200).json(Users)
+   try{
+    const users = await User.find()
+
+    return res.status(200).json({
+        success:true,
+        status:'success',
+        data:users,
+        message:'Users fetched successfully'
+    })
+   }catch(error){
+    return res.status(500).json({
+        success:false,
+        status:'error',
+        message:error.message ?? 'Something went wrong',
+        data:null
+    })
+   }
 
 })
 
 
 
-app.post('/users',(req,res)=>{
+app.post('/users',async(req,res)=>{
+    try {
+        
     const body = req.body;
     console.log(body)
 
-    Users.push({...body,id:Users.length + 1});
+    const user = await User.create(body)
 
-    fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),(err,data)=>{
-       return res.status(201).json({
-            status:'success',
-            message:'User created successfully',
-            id:Users.length
-        })
+    console.log('new user',user)
+
+    return res.status(201).json({
+        success:true,
+        status:'success',
+        message:'User created successfully',
+        data:user,
     })
-
-    
+        
+    } catch (error) {
+        return res.status(500).json({
+            success:false,
+            status:'error',
+            message:error.message ?? 'Something went wrong',
+            data:null
+        })
+    }
 
 })
 
 
 
-app.route('/users/:id').get((req,res)=>{
-    console.log(req.params.id)
+app.route('/users/:id').get(async(req,res)=>{
+    
+    try{
+        const userId = req.params.id
 
-    const userId = Number(req.params.id)
-
-    const user = Users.find((user) => user.id === userId)
+    const user = await User.findById(userId)
 
     if(!user){
         return res.status(404).json({
@@ -83,17 +115,31 @@ app.route('/users/:id').get((req,res)=>{
         })
     }
 
-    return res.status(200).json(user)
+    return res.status(200).json({
+        success:true,
+        status:'success',
+        message:'User fetched successfully',
+        data:user
+    })
+    }catch(error){
+        return res.status(500).json({
+            success:false,
+            status:'error',
+            message:error.message ?? 'Something went wrong',
+            data:null
+        })
+    }
 
-}).patch((req,res)=>{
+}).patch(async(req,res)=>{
 
-    const id = Number(req.params.id)
+    try{
+        const id = req.params.id
 
     const body = req.body;
+    console.log(body)
+    const updatedUser = await User.findByIdAndUpdate(id,body,{new:true})
 
-    const userIndex = Users.findIndex(user => user.id === id);
-
-    if(userIndex === -1){
+    if(!updatedUser){
 
         return res.status(404).json({
             status:'Fail',
@@ -102,44 +148,36 @@ app.route('/users/:id').get((req,res)=>{
 
     }
 
-    const user = Users[userIndex]
-
-    const updatedUser = {
-        ...user,
-        ...body,
-    }
-
-    Users[userIndex] = updatedUser;
-
-    fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),(err,data) =>{
-        return res.status(201).json({
-            status:'success',
-            message:'User updated'
-        })
+    return res.status(201).json({
+        status:'success',
+        message:'User updated',
+        data:updatedUser
     })
+
+    }catch(error){
+
+        return res.status(500).json({
+            success:false,
+            status:'error',
+            message:error.message ?? 'Something went wrong',
+            data:null
+        })
+    }
 
    
 
-}).delete((req,res)=>{
+}).delete(async (req,res)=>{
 
-    const id = Number(req.params.id);
+    const id = req.params.id;
 
-    const index = Users.findIndex(user => user.id === id);
+    const user = await User.findByIdAndDelete(id)
 
-    if(index === -1){
-        return res.status(404).json({
-            status:'Fail',
-            message:'User not found.'
-        })
-    }
 
-    Users.splice(index,1);
 
-    fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),()=>{
-        return res.status(200).json({
-            status:'Success',
-            message:'User Deleted.'
-        })
+
+      return res.status(200).json({
+        status:'Success',
+        message:'User Deleted.'
     })
 
     
