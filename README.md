@@ -1269,3 +1269,55 @@ We can use third-party middleware like morgan, cors, helmet, etc.
 const morgan = require("morgan");
 app.use(morgan("dev"));
 ```
+
+
+
+
+### MongoDB - NoSQL Database for Modern Applications
+
+MongoDB is a NoSQL database that stores data in a JSON-like format called BSON (Binary JSON). It is known for scalability, flexibility, and high performance.
+
+
+#####  Why Use MongoDB?
+✅ Schema-less – No fixed structure (good for dynamic data)
+✅ Scalable – Handles large volumes of data efficiently
+✅ Fast – Optimized for high-speed queries
+✅ Flexible – Supports complex queries with JSON-like documents
+✅ Cross-platform – Works on Windows, macOS, and Linux
+
+
+##### Installing MongoDB
+1. Install MongoDB Locally
+   Download mongodDB server community edition from mongoDB  offiacial site.
+
+  - Install Mongo Shell Locally (mongosh)
+      Download mongodDB shell (mongosh) from mongoDB  offiacial site and install it locally.
+  - Check for if it is installed
+     ```js
+     mongod --version
+     mongosh --version
+     ```
+  - Start MongoDB server:
+    ```js
+    mongod
+    ```
+  - Open MongoDB shell:
+    ```js
+    mongosh
+    
+    ```
+2. Using MongoDB Atlas (Cloud)
+   -  Create a free database at (MongoDB Atlas)[https://www.mongodb.com/products/platform/atlas-database]
+   -  Connect it to your application with a connection string.
+
+
+##### Basic MongoDB Commands
+
+  `show dbs`                                                                                =>  Show Databases
+  `use <database_name>`                                                                     =>  Create or Switch Database
+  `db.createCollection("users")`                                                            =>  db.createCollection("users")
+  `db.users.find()`                                                                         =>  Find Data
+  `db.users.insertOne({ name: "John Doe", age: 25, email: "john@example.com" })`            =>  Insert Single Data
+  `db.users.updateOne({ name: "John Doe" }, { $set: { age: 26 } })`                         =>  Update Data
+  `db.users.deleteOne({ name: "John Doe" })`                                                =>  Delete Data
+
