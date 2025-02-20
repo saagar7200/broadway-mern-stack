@@ -1328,3 +1328,144 @@ MongoDB is a NoSQL database that stores data in a JSON-like format called BSON (
   
   `db.users.deleteOne({ name: "John Doe" })`                                                =>  Delete Data
 
+
+
+  #### Day-16 MONGODB CRUD using mongodb with NodeJs
+
+  ##### 1. MONGODB CRUD using mongodb Client
+
+  To use MongoDB in a Node.js project, install the mongodb package:
+
+  ```js
+    npm install mongodb
+  ```
+- Connecting to MongoDB
+        ```js
+        const { MongoClient } = require("mongodb");
+      
+      const uri = "mongodb://localhost:27017"; // Local MongoDB server
+      const client = new MongoClient(uri);
+      
+      async function connectDB() {
+          try {
+              await client.connect();
+              console.log("Connected to MongoDB");
+              const db = client.db("myDatabase");
+              const users = db.collection("users");
+          } catch (error) {
+              console.error("Connection failed", error);
+          }
+      }
+      
+      connectDB();
+      
+        ```
+
+- Insert Data
+
+
+  ```js
+        async function insertUser() {
+          const db = client.db("myDatabase");
+          const users = db.collection("users");
+      
+          const newUser = { name: "Alice", age: 30, email: "alice@example.com" };
+          const result = await users.insertOne(newUser);
+          console.log("User inserted:", result.insertedId);
+      }
+      
+      insertUser();
+
+  ```
+- Finding Users
+
+  
+    ```js
+        async function findUsers() {
+            const db = client.db("myDatabase");
+            const users = db.collection("users");
+        
+            const allUsers = await users.find().toArray();
+            console.log("Users:", allUsers);
+        }
+        
+      findUsers();
+  ```
+
+
+
+
+#### 2. MongoDB with Mongoose (Easier Syntax)
+
+
+  Mongoose is an ODM (Object Data Modeling) library that simplifies MongoDB operations.
+
+
+
+  1. Install Mongoose
+
+     ```js
+     npm install mongoose
+     ```
+
+     
+  2. Connect to MongoDB
+
+     ```js
+       const mongoose = require("mongoose");
+  
+       mongoose.connect("mongodb://localhost:27017/myDatabase")
+      .then(() => console.log("MongoDB connected"))
+      .catch(err => console.error("Connection error:", err));
+
+     ```
+
+3. Define a Schema
+
+
+   ```js
+       const userSchema = new mongoose.Schema({
+        name: String,
+        age: Number,
+        email: String
+      });
+    
+      const User = mongoose.model("User", userSchema);
+
+   ```
+
+4. Insert Data
+
+
+  ```js
+      async function createUser() {
+          const user = new User({ name: "Bob", age: 28, email: "bob@example.com" });
+          await user.save();
+          console.log("User saved:", user);
+      }
+      
+      createUser();
+
+  ```
+
+5. Fetch Data
+
+
+   ```js
+       async function getUsers() {
+        const users = await User.find();
+        console.log(users);
+      }
+    
+     getUsers();
+
+   ```
+
+***Summary***
+>  [!NOTE]
+>  MongoDB stores data in JSON-like documents.
+>  CRUD Operations: Insert, Find, Update, Delete.
+>  MongoDB Node.js Driver: Directly interacts with MongoDB.
+>  Mongoose: Provides schemas and easier queries.
+
+
