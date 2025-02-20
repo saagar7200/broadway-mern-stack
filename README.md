@@ -1437,16 +1437,18 @@ MongoDB is a NoSQL database that stores data in a JSON-like format called BSON (
 4. Insert Data
 
 
-  ```js
-      async function createUser() {
-          const user = new User({ name: "Bob", age: 28, email: "bob@example.com" });
-          await user.save();
-          console.log("User saved:", user);
-      }
-      
-      createUser();
+      ```js
+          async function createUser() {
+              const user = new User({ name: "Bob", age: 28, email: "bob@example.com" });
+              await user.save();
+              console.log("User saved:", user);
+          }
+          
+          createUser();
+    
+      ```
 
-  ```
+      
 
 5. Fetch Data
 
@@ -1462,6 +1464,7 @@ MongoDB is a NoSQL database that stores data in a JSON-like format called BSON (
    ```
 
    
+   
 
 ***Summary***
 
@@ -1474,5 +1477,10 @@ MongoDB is a NoSQL database that stores data in a JSON-like format called BSON (
 >  MongoDB Node.js Driver: Directly interacts with MongoDB.
 > 
 >  Mongoose: Provides schemas and easier queries.
+
+
+
+
+
 
 
