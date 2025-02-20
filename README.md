@@ -1337,9 +1337,9 @@ MongoDB is a NoSQL database that stores data in a JSON-like format called BSON (
 
   To use MongoDB in a Node.js project, install the mongodb package:
 
-    ```js
-        npm install mongodb
-    ```
+  ```js
+      npm install mongodb
+  ```
 - Connecting to MongoDB
 
     ```js
