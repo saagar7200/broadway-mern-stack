@@ -1307,7 +1307,7 @@ MongoDB is a NoSQL database that stores data in a JSON-like format called BSON (
     
     ```
 2. Using MongoDB Atlas (Cloud)
-   -  Create a free database at [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database){:target = "_blank"}
+   -  Create a free database at [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database){:target="_blank"}
    -  Connect it to your application with a connection string.
 
 
