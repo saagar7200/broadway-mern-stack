@@ -984,6 +984,7 @@ app.listen(port, () => {
         })
     })
     ```
+    
 
 4. PATCH Request:
    -  Update user
@@ -991,42 +992,42 @@ app.listen(port, () => {
    Example:
 
    ```js
-   app.patch((req,res)=>{
-
-    const id = Number(req.params.id)
-
-    const body = req.body;
-
-    const userIndex = Users.findIndex(user => user.id === id);
-
-    if(userIndex === -1){
-
-        return res.status(404).json({
-            status:'Fail',
-            message:'User not found.'
+       app.patch((req,res)=>{
+    
+        const id = Number(req.params.id)
+    
+        const body = req.body;
+    
+        const userIndex = Users.findIndex(user => user.id === id);
+    
+        if(userIndex === -1){
+    
+            return res.status(404).json({
+                status:'Fail',
+                message:'User not found.'
+            })
+    
+        }
+    
+        const user = Users[userIndex]
+    
+        const updatedUser = {
+            ...user,
+            ...body,
+        }
+    
+        Users[userIndex] = updatedUser;
+    
+        fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),(err,data) =>{
+            return res.status(201).json({
+                status:'success',
+                message:'User updated'
+            })
         })
-
-    }
-
-    const user = Users[userIndex]
-
-    const updatedUser = {
-        ...user,
-        ...body,
-    }
-
-    Users[userIndex] = updatedUser;
-
-    fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),(err,data) =>{
-        return res.status(201).json({
-            status:'success',
-            message:'User updated'
-        })
+    
+       
+    
     })
-
-   
-
-})
    ```
 
 6. DELETE Request:
@@ -1035,31 +1036,31 @@ app.listen(port, () => {
    Example:
 
    ```js
-   app.delete((req,res)=>{
-
-    const id = Number(req.params.id);
-
-    const index = Users.findIndex(user => user.id === id);
-
-    if(index === -1){
-        return res.status(404).json({
-            status:'Fail',
-            message:'User not found.'
-        })
-    }
-
-    Users.splice(index,1);
-
-    fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),()=>{
-        return res.status(200).json({
-            status:'Success',
-            message:'User Deleted.'
-        })
-    })
-
+       app.delete((req,res)=>{
     
-
-})
+        const id = Number(req.params.id);
+    
+        const index = Users.findIndex(user => user.id === id);
+    
+        if(index === -1){
+            return res.status(404).json({
+                status:'Fail',
+                message:'User not found.'
+            })
+        }
+    
+        Users.splice(index,1);
+    
+        fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),()=>{
+            return res.status(200).json({
+                status:'Success',
+                message:'User Deleted.'
+            })
+        })
+    
+        
+    
+    })
    ```
 
 ##### Grouping same routes endpoints with different methods:
@@ -1073,21 +1074,21 @@ This is particularly useful when us want to handle multiple types of requests (e
 
 ***Syntax of app.route():***
 
-```js
-app.route('/path')
-  .get((req, res) => {
-    // Handle GET request
-  })
-  .post((req, res) => {
-    // Handle POST request
-  })
-  .put((req, res) => {
-    // Handle PUT request
-  })
-  .delete((req, res) => {
-    // Handle DELETE request
-  });
-```
+  ```js
+    app.route('/path')
+      .get((req, res) => {
+        // Handle GET request
+      })
+      .post((req, res) => {
+        // Handle POST request
+      })
+      .put((req, res) => {
+        // Handle PUT request
+      })
+      .delete((req, res) => {
+        // Handle DELETE request
+      });
+  ```
 
 
 Benefits of app.route():
@@ -1099,57 +1100,389 @@ Benefits of app.route():
 Example of app.route():
 
 ```js
-app.route('/users/:id').get((req,res)=>{
-
-    const userId = Number(req.params.id)
-
-    const user = Users.find((user) => user.id === userId)
-
-    return res.json(user)
-
-}).patch((req,res)=>{
-
-    const id = Number(req.params.id)
-
-    const body = req.body;
-
-    const userIndex = Users.findIndex(user => user.id === id);
-
-    if(userIndex === -1){
-
-        return res.status(404).json({
-            status:'Fail',
-            message:'User not found.'
+    app.route('/users/:id').get((req,res)=>{
+    
+        const userId = Number(req.params.id)
+    
+        const user = Users.find((user) => user.id === userId)
+    
+        return res.json(user)
+    
+    }).patch((req,res)=>{
+    
+        const id = Number(req.params.id)
+    
+        const body = req.body;
+    
+        const userIndex = Users.findIndex(user => user.id === id);
+    
+        if(userIndex === -1){
+    
+            return res.status(404).json({
+                status:'Fail',
+                message:'User not found.'
+            })
+    
+        }
+    
+        const user = Users[userIndex]
+    
+        const updatedUser = {
+            ...user,
+            ...body,
+        }
+    
+        Users[userIndex] = updatedUser;
+    
+        fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),(err,data) =>{
+            return res.status(201).json({
+                status:'success',
+                message:'User updated'
+            })
         })
-
-    }
-
-    const user = Users[userIndex]
-
-    const updatedUser = {
-        ...user,
-        ...body,
-    }
-
-    Users[userIndex] = updatedUser;
-
-    fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),(err,data) =>{
-        return res.status(201).json({
-            status:'success',
-            message:'User updated'
+    
+       
+    
+    }).delete((req,res)=>{
+    
+        return res.json({
+            status:'pending'
         })
+    
     })
+```
+
+
+
+
+
+### Day:14 Expressjs middleware 
+
+Express.js middleware functions are functions that have access to the `request (req)`, `response (res)`, and the  `next middleware function` in the application’s request-response cycle. Middleware functions can perform various tasks such as logging, authentication, request parsing, and error handling.
+
+
+##### Types of Middleware in Express.js
+
+  1. Application-Level Middleware
+  2.  Router-Level Middleware
+  3.  Built-in Middleware
+  4.  Error-Handling Middleware
+  5.  Third-Party Middleware
+
+
+##### Application-Level Middleware
+
+Application-level middleware is bound to an instance of `express` and applies to all requests unless limited by route parameters.
+
+*Example: Logging Middleware*
+
+```js
+const express = require("express");
+const app = express();
+
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.url} at ${new Date()}`);
+    next(); // Pass control to the next middleware
+});
+
+app.get("/", (req, res) => {
+    res.send("Home Page");
+});
+
+app.listen(3000, () => console.log("Server running on port 3000"));
+
+```
+
+#####  Router-Level Middleware
+
+Router-level middleware works similarly to application-level middleware but is bound to an instance of `express.Router()`.
+
+*Example: Middleware in a Router*
+
+```js
+const express = require("express");
+const app = express();
+const router = express.Router();
+
+router.use((req, res, next) => {
+    console.log("Router middleware executed");
+    next();
+});
+
+router.get("/", (req, res) => {
+    res.send("Router Home Page");
+});
+
+app.use("/router", router);
+
+app.listen(3000, () => console.log("Server running on port 3000"));
+
+```
+
+
+##### Built-in Middleware
+
+Express has built-in middleware for common tasks:
+
+
+`express.json()`          => 	Parses JSON request bodies
+`express.urlencoded()`    => 	Parses URL-encoded data
+`express.static()`        =>	Serves static files
+
+*Example: Using Built-in Middleware*
+
+```js
+app.use(express.json()); // Enables JSON parsing
+app.use(express.urlencoded({ extended: true })); // Enables URL-encoded parsing
+
+app.post("/data", (req, res) => {
+    console.log(req.body);
+    res.send("Data received");
+});
+```
+
+##### Error-Handling Middleware
+
+
+Error-handling middleware takes four arguments: `(err, req, res, next)`. It is used to handle errors in the application.
+
+*Example: Error Handling*
+
+```js
+app.use((req, res, next) => {
+    next(new Error("Something went wrong"));
+});
+
+app.use((err, req, res, next) => {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error");
+});
+
+```
+
+##### Third-Party Middleware
+
+We can use third-party middleware like morgan, cors, helmet, etc.
+
+*Example: Using Morgan for Logging*
+
+```js
+const morgan = require("morgan");
+app.use(morgan("dev"));
+```
+
+
+
+
+### MongoDB - NoSQL Database for Modern Applications
+
+MongoDB is a NoSQL database that stores data in a JSON-like format called BSON (Binary JSON). It is known for scalability, flexibility, and high performance.
+
+
+#####  Why Use MongoDB?
+✅ Schema-less – No fixed structure (good for dynamic data)
+✅ Scalable – Handles large volumes of data efficiently
+✅ Fast – Optimized for high-speed queries
+✅ Flexible – Supports complex queries with JSON-like documents
+✅ Cross-platform – Works on Windows, macOS, and Linux
+
+
+##### Installing MongoDB
+1. Install MongoDB Locally
+   Download mongodDB server community edition from mongoDB  offiacial site.
+
+  - Install Mongo Shell Locally (mongosh)
+      Download mongodDB shell (mongosh) from mongoDB  offiacial site and install it locally.
+  - Check for if it is installed
+     ```js
+     mongod --version
+     mongosh --version
+     ```
+  - Start MongoDB server:
+    ```js
+    mongod
+    ```
+  - Open MongoDB shell:
+    ```js
+    mongosh
+    
+    ```
+2. Using MongoDB Atlas (Cloud)
+   -  Create a free database at [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database)
+   
+   -  Connect it to your application with a connection string.
+
+
+##### Basic MongoDB Commands
+
+  `show dbs`                                                                                =>  Show Databases
+  
+  `use <database_name>`                                                                     =>  Create or Switch Database
+  
+  `db.createCollection("users")`                                                            =>  db.createCollection("users")
+  
+  `db.users.find()`                                                                         =>  Find Data
+  
+  `db.users.insertOne({ name: "John Doe", age: 25, email: "john@example.com" })`            =>  Insert Single Data
+  
+  `db.users.updateOne({ name: "John Doe" }, { $set: { age: 26 } })`                         =>  Update Data
+  
+  `db.users.deleteOne({ name: "John Doe" })`                                                =>  Delete Data
+
+
+
+  #### Day-16 MONGODB CRUD using mongodb with NodeJs
+
+  ##### 1. MONGODB CRUD using mongodb Client
+
+  To use MongoDB in a Node.js project, install the mongodb package:
+
+  ```js
+      npm install mongodb
+  ```
+- Connecting to MongoDB
+
+    ```js
+
+        const { MongoClient } = require("mongodb");
+      
+      const uri = "mongodb://localhost:27017"; // Local MongoDB server
+      const client = new MongoClient(uri);
+      
+      async function connectDB() {
+          try {
+              await client.connect();
+              console.log("Connected to MongoDB");
+              const db = client.db("myDatabase");
+              const users = db.collection("users");
+          } catch (error) {
+              console.error("Connection failed", error);
+          }
+      }
+      
+      connectDB();
+  
+    ```
+
+- Insert Data
+
+
+  ```js
+        async function insertUser() {
+          const db = client.db("myDatabase");
+          const users = db.collection("users");
+      
+          const newUser = { name: "Alice", age: 30, email: "alice@example.com" };
+          const result = await users.insertOne(newUser);
+          console.log("User inserted:", result.insertedId);
+      }
+      
+      insertUser();
+
+  ```
+- Finding Users
+
+  
+    ```js
+        async function findUsers() {
+            const db = client.db("myDatabase");
+            const users = db.collection("users");
+        
+            const allUsers = await users.find().toArray();
+            console.log("Users:", allUsers);
+        }
+        
+      findUsers();
+  ```
+
+
+
+
+#### 2. MongoDB with Mongoose (Easier Syntax)
+
+
+  Mongoose is an ODM (Object Data Modeling) library that simplifies MongoDB operations.
+
+
+
+  1. Install Mongoose
+
+       ```js
+       npm install mongoose
+       ```
+
+     
+  2. Connect to MongoDB
+
+     ```js
+       const mongoose = require("mongoose");
+  
+       mongoose.connect("mongodb://localhost:27017/myDatabase")
+      .then(() => console.log("MongoDB connected"))
+      .catch(err => console.error("Connection error:", err));
+
+     ```
+
+3. Define a Schema
+
+
+   ```js
+       const userSchema = new mongoose.Schema({
+        name: String,
+        age: Number,
+        email: String
+      });
+    
+      const User = mongoose.model("User", userSchema);
+
+   ```
+
+4. Insert Data
+
+
+      ```js
+          async function createUser() {
+              const user = new User({ name: "Bob", age: 28, email: "bob@example.com" });
+              await user.save();
+              console.log("User saved:", user);
+          }
+          
+          createUser();
+    
+      ```
+
+      
+
+5. Fetch Data
+
+
+   ```js
+       async function getUsers() {
+        const users = await User.find();
+        console.log(users);
+      }
+    
+     getUsers();
+
+   ```
 
    
+   
 
-}).delete((req,res)=>{
+***Summary***
 
-    return res.json({
-        status:'pending'
-    })
+>  [!NOTE]
+> 
+>  MongoDB stores data in JSON-like documents.
+> 
+>  CRUD Operations: Insert, Find, Update, Delete.
+> 
+>  MongoDB Node.js Driver: Directly interacts with MongoDB.
+> 
+>  Mongoose: Provides schemas and easier queries.
 
-})
-```
+
+
 
 
 
