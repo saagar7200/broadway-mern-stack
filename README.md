@@ -1152,5 +1152,117 @@ app.route('/users/:id').get((req,res)=>{
 ```
 
 
+#### day:14 Expressjs middleware 
+
+Express.js middleware functions are functions that have access to the `request (req)`, `response (res)`, and the  `next middleware function` in the application’s request-response cycle. Middleware functions can perform various tasks such as logging, authentication, request parsing, and error handling.
 
 
+##### Types of Middleware in Express.js
+
+  1. Application-Level Middleware
+  2.  Router-Level Middleware
+  3.  Built-in Middleware
+  4.  Error-Handling Middleware
+  5.  Third-Party Middleware
+
+
+##### Application-Level Middleware
+
+Application-level middleware is bound to an instance of `express` and applies to all requests unless limited by route parameters.
+
+*Example: Logging Middleware*
+
+```js
+const express = require("express");
+const app = express();
+
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.url} at ${new Date()}`);
+    next(); // Pass control to the next middleware
+});
+
+app.get("/", (req, res) => {
+    res.send("Home Page");
+});
+
+app.listen(3000, () => console.log("Server running on port 3000"));
+
+```
+
+#####  Router-Level Middleware
+
+Router-level middleware works similarly to application-level middleware but is bound to an instance of `express.Router()`.
+
+*Example: Middleware in a Router*
+
+```js
+const express = require("express");
+const app = express();
+const router = express.Router();
+
+router.use((req, res, next) => {
+    console.log("Router middleware executed");
+    next();
+});
+
+router.get("/", (req, res) => {
+    res.send("Router Home Page");
+});
+
+app.use("/router", router);
+
+app.listen(3000, () => console.log("Server running on port 3000"));
+
+```
+
+
+##### Built-in Middleware
+
+Express has built-in middleware for common tasks:
+
+
+`express.json()`          => 	Parses JSON request bodies
+`express.urlencoded()`    => 	Parses URL-encoded data
+`express.static()`        =>	Serves static files
+
+*Example: Using Built-in Middleware*
+
+```js
+app.use(express.json()); // Enables JSON parsing
+app.use(express.urlencoded({ extended: true })); // Enables URL-encoded parsing
+
+app.post("/data", (req, res) => {
+    console.log(req.body);
+    res.send("Data received");
+});
+```
+
+##### Error-Handling Middleware
+
+
+Error-handling middleware takes four arguments: `(err, req, res, next)`. It is used to handle errors in the application.
+
+*Example: Error Handling*
+
+```js
+app.use((req, res, next) => {
+    next(new Error("Something went wrong"));
+});
+
+app.use((err, req, res, next) => {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error");
+});
+
+```
+
+##### Third-Party Middleware
+
+We can use third-party middleware like morgan, cors, helmet, etc.
+
+*Example: Using Morgan for Logging*
+
+```js
+const morgan = require("morgan");
+app.use(morgan("dev"));
+```
