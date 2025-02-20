@@ -1,13 +1,13 @@
-
-
+require('dotenv').config()
 const express = require('express');
 const connectDatabase = require('./config/dbconnect')
-const userRoutes = require('./routes/user.routes')
+const userRoutes = require('./routes/user.routes');
+const { customError,errorHandler } = require('./middlewares/custom-error-handler');
 
 const app = express();
-const PORT = 8000
+const PORT = process.env.PORT || 8080
 
-const DB_URI = 'mongodb://127.0.0.1:27017/crud-users'
+const DB_URI =process.env.DB_URI
 
 // connect db
 connectDatabase(DB_URI)
@@ -21,20 +21,30 @@ app.use(express.urlencoded({extended:false}));
 
 // using routes
 
-app.use('/users',userRoutes)
+app.use('/users',userRoutes);
+
+app.all('*',(req,res,next)=>{
+    const message =`Can not ${req.method} on ${req.originalUrl}`
+
+    // res.status(404).json({
+    //     status:'fail',
+    //     success:false,
+    //     message:`Can not ${req.method} on ${req.originalUrl}`
+
+    // })
+
+    // const err = new Error(message);
+    const err  = new customError(message,404)
+    // err.statusCode = 404
 
 
-
-app.use((err,req,res,next)=>{
-
-    const statusCode = err.statusCode || 500
-
-    res.status(statusCode).json({
-        status:'Error',
-        message:err.message || 'Something went wrong'
-    })
+    next(err)
 
 })
+
+
+
+app.use(errorHandler)
 
 
 

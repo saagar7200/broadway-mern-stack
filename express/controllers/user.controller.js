@@ -1,4 +1,6 @@
+const { customError } = require('../middlewares/custom-error-handler')
 const User = require('../models/user.model')
+const { catchAsyncHandler } = require('../utils/async-handle')
 
 
 exports.getAllUser = async (req,res)=>{
@@ -24,8 +26,8 @@ exports.getAllUser = async (req,res)=>{
  
  }
 
- exports.create = async(req,res)=>{
-    try {
+ exports.create = catchAsyncHandler(async(req,res)=>{
+
         
     const body = req.body;
     console.log(body)
@@ -41,30 +43,21 @@ exports.getAllUser = async (req,res)=>{
         data:user,
     })
         
-    } catch (error) {
-        return res.status(500).json({
-            success:false,
-            status:'error',
-            message:error.message ?? 'Something went wrong',
-            data:null
-        })
-    }
-
-}
-
-
-exports.getById = async(req,res)=>{
     
-    try{
+
+})
+
+
+exports.getById = catchAsyncHandler(async(req,res,next)=>{
+    
         const userId = req.params.id
 
-    const user = await User.findById(userId)
+        const user = await User.findById(userId)
 
     if(!user){
-        return res.status(404).json({
-            status:'Not found',
-            message:'User not found'
-        })
+
+        throw new customError('User not found',404)
+
     }
 
     return res.status(200).json({
@@ -73,18 +66,12 @@ exports.getById = async(req,res)=>{
         message:'User fetched successfully',
         data:user
     })
-    }catch(error){
-        return res.status(500).json({
-            success:false,
-            status:'error',
-            message:error.message ?? 'Something went wrong',
-            data:null
-        })
-    }
+   })
 
-}
 
-exports.update = async(req,res)=>{
+
+
+exports.update = catchAsyncHandler(async(req,res,next)=>{
 
     try{
         const id = req.params.id
@@ -95,10 +82,12 @@ exports.update = async(req,res)=>{
 
     if(!updatedUser){
 
-        return res.status(404).json({
-            status:'Fail',
-            message:'User not found.'
-        })
+        // return res.status(404).json({
+        //     status:'Fail',
+        //     message:'User not found.'
+        // })
+        throw new customError('User not found',404)
+
 
     }
 
@@ -110,17 +99,18 @@ exports.update = async(req,res)=>{
 
     }catch(error){
 
-        return res.status(500).json({
+        return res.status(error.statusCode || 500).json({
             success:false,
-            status:'error',
+            status:error.status || 'error',
             message:error.message ?? 'Something went wrong',
             data:null
         })
+        // next(error)
     }
 
    
 
-}
+})
 
 
 exports.deleteUser =async (req,res)=>{
