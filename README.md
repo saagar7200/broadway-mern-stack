@@ -1404,9 +1404,9 @@ MongoDB is a NoSQL database that stores data in a JSON-like format called BSON (
 
   1. Install Mongoose
 
-     ```js
-     npm install mongoose
-     ```
+       ```js
+       npm install mongoose
+       ```
 
      
   2. Connect to MongoDB
@@ -1461,11 +1461,18 @@ MongoDB is a NoSQL database that stores data in a JSON-like format called BSON (
 
    ```
 
+   
+
 ***Summary***
+
 >  [!NOTE]
+> 
 >  MongoDB stores data in JSON-like documents.
+> 
 >  CRUD Operations: Insert, Find, Update, Delete.
+> 
 >  MongoDB Node.js Driver: Directly interacts with MongoDB.
+> 
 >  Mongoose: Provides schemas and easier queries.
 
 
