@@ -984,6 +984,7 @@ app.listen(port, () => {
         })
     })
     ```
+    
 
 4. PATCH Request:
    -  Update user
@@ -991,42 +992,42 @@ app.listen(port, () => {
    Example:
 
    ```js
-   app.patch((req,res)=>{
-
-    const id = Number(req.params.id)
-
-    const body = req.body;
-
-    const userIndex = Users.findIndex(user => user.id === id);
-
-    if(userIndex === -1){
-
-        return res.status(404).json({
-            status:'Fail',
-            message:'User not found.'
+       app.patch((req,res)=>{
+    
+        const id = Number(req.params.id)
+    
+        const body = req.body;
+    
+        const userIndex = Users.findIndex(user => user.id === id);
+    
+        if(userIndex === -1){
+    
+            return res.status(404).json({
+                status:'Fail',
+                message:'User not found.'
+            })
+    
+        }
+    
+        const user = Users[userIndex]
+    
+        const updatedUser = {
+            ...user,
+            ...body,
+        }
+    
+        Users[userIndex] = updatedUser;
+    
+        fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),(err,data) =>{
+            return res.status(201).json({
+                status:'success',
+                message:'User updated'
+            })
         })
-
-    }
-
-    const user = Users[userIndex]
-
-    const updatedUser = {
-        ...user,
-        ...body,
-    }
-
-    Users[userIndex] = updatedUser;
-
-    fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),(err,data) =>{
-        return res.status(201).json({
-            status:'success',
-            message:'User updated'
-        })
+    
+       
+    
     })
-
-   
-
-})
    ```
 
 6. DELETE Request:
@@ -1035,31 +1036,31 @@ app.listen(port, () => {
    Example:
 
    ```js
-   app.delete((req,res)=>{
-
-    const id = Number(req.params.id);
-
-    const index = Users.findIndex(user => user.id === id);
-
-    if(index === -1){
-        return res.status(404).json({
-            status:'Fail',
-            message:'User not found.'
-        })
-    }
-
-    Users.splice(index,1);
-
-    fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),()=>{
-        return res.status(200).json({
-            status:'Success',
-            message:'User Deleted.'
-        })
-    })
-
+       app.delete((req,res)=>{
     
-
-})
+        const id = Number(req.params.id);
+    
+        const index = Users.findIndex(user => user.id === id);
+    
+        if(index === -1){
+            return res.status(404).json({
+                status:'Fail',
+                message:'User not found.'
+            })
+        }
+    
+        Users.splice(index,1);
+    
+        fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),()=>{
+            return res.status(200).json({
+                status:'Success',
+                message:'User Deleted.'
+            })
+        })
+    
+        
+    
+    })
    ```
 
 ##### Grouping same routes endpoints with different methods:
@@ -1073,21 +1074,21 @@ This is particularly useful when us want to handle multiple types of requests (e
 
 ***Syntax of app.route():***
 
-```js
-app.route('/path')
-  .get((req, res) => {
-    // Handle GET request
-  })
-  .post((req, res) => {
-    // Handle POST request
-  })
-  .put((req, res) => {
-    // Handle PUT request
-  })
-  .delete((req, res) => {
-    // Handle DELETE request
-  });
-```
+  ```js
+    app.route('/path')
+      .get((req, res) => {
+        // Handle GET request
+      })
+      .post((req, res) => {
+        // Handle POST request
+      })
+      .put((req, res) => {
+        // Handle PUT request
+      })
+      .delete((req, res) => {
+        // Handle DELETE request
+      });
+  ```
 
 
 Benefits of app.route():
@@ -1099,56 +1100,56 @@ Benefits of app.route():
 Example of app.route():
 
 ```js
-app.route('/users/:id').get((req,res)=>{
-
-    const userId = Number(req.params.id)
-
-    const user = Users.find((user) => user.id === userId)
-
-    return res.json(user)
-
-}).patch((req,res)=>{
-
-    const id = Number(req.params.id)
-
-    const body = req.body;
-
-    const userIndex = Users.findIndex(user => user.id === id);
-
-    if(userIndex === -1){
-
-        return res.status(404).json({
-            status:'Fail',
-            message:'User not found.'
+    app.route('/users/:id').get((req,res)=>{
+    
+        const userId = Number(req.params.id)
+    
+        const user = Users.find((user) => user.id === userId)
+    
+        return res.json(user)
+    
+    }).patch((req,res)=>{
+    
+        const id = Number(req.params.id)
+    
+        const body = req.body;
+    
+        const userIndex = Users.findIndex(user => user.id === id);
+    
+        if(userIndex === -1){
+    
+            return res.status(404).json({
+                status:'Fail',
+                message:'User not found.'
+            })
+    
+        }
+    
+        const user = Users[userIndex]
+    
+        const updatedUser = {
+            ...user,
+            ...body,
+        }
+    
+        Users[userIndex] = updatedUser;
+    
+        fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),(err,data) =>{
+            return res.status(201).json({
+                status:'success',
+                message:'User updated'
+            })
         })
-
-    }
-
-    const user = Users[userIndex]
-
-    const updatedUser = {
-        ...user,
-        ...body,
-    }
-
-    Users[userIndex] = updatedUser;
-
-    fs.writeFile('MOCK_DATA.json',JSON.stringify(Users),(err,data) =>{
-        return res.status(201).json({
-            status:'success',
-            message:'User updated'
+    
+       
+    
+    }).delete((req,res)=>{
+    
+        return res.json({
+            status:'pending'
         })
+    
     })
-
-   
-
-}).delete((req,res)=>{
-
-    return res.json({
-        status:'pending'
-    })
-
-})
 ```
 
 
@@ -1336,11 +1337,13 @@ MongoDB is a NoSQL database that stores data in a JSON-like format called BSON (
 
   To use MongoDB in a Node.js project, install the mongodb package:
 
-  ```js
-    npm install mongodb
-  ```
+    ```js
+        npm install mongodb
+    ```
 - Connecting to MongoDB
-        ```js
+
+    ```js
+
         const { MongoClient } = require("mongodb");
       
       const uri = "mongodb://localhost:27017"; // Local MongoDB server
@@ -1358,8 +1361,8 @@ MongoDB is a NoSQL database that stores data in a JSON-like format called BSON (
       }
       
       connectDB();
-      
-        ```
+  
+    ```
 
 - Insert Data
 
