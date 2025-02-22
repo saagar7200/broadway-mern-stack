@@ -68,7 +68,7 @@ app.post('/users',(req,res)=>{
 })
 
 
-// grouping same endpoints 
+// grouping express routes having same endpoints 
 app.route('/users/:id').get((req,res)=>{
 
     const userId = Number(req.params.id)
