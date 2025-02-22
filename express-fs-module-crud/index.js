@@ -12,17 +12,17 @@ const PORT = 8000
 app.use(express.urlencoded({extended:false}));
 // app.use(express.json())
 
+
+// middleware 1
 app.use((req,res,next)=>{
     console.log('middleware 1');
 
     req.user = 'User 1'
 
-//    return res.end('Ended by middleware 1')
-
-
     next()
 })
 
+// middleware 2
 app.use((req,res,next)=>{
     console.log('middleware 2');
 
@@ -48,7 +48,7 @@ app.get('/users',(req,res)=>{
 })
 
 
-
+// post new user
 app.post('/users',(req,res)=>{
     const body = req.body;
     console.log(body)
@@ -68,9 +68,8 @@ app.post('/users',(req,res)=>{
 })
 
 
-
+// grouping same endpoints 
 app.route('/users/:id').get((req,res)=>{
-    console.log(req.params.id)
 
     const userId = Number(req.params.id)
 
