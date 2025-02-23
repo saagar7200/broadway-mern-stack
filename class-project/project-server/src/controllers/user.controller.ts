@@ -79,7 +79,7 @@ export const update = async (req:Request,res:Response) =>{
 
 //     // 5. if pass !==  --> error 
 
-//     // 6 succes response ==> login successful
+//     // 6 success response ==> login successful
 
 // }
 
