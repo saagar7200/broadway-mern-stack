@@ -15,6 +15,9 @@ app.use(express.urlencoded({extended:false}));
 
 // middleware 1
 app.use((req,res,next)=>{
+
+
+    
     console.log('middleware 1');
 
     req.user = 'User 1'
