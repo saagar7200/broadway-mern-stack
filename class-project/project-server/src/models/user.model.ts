@@ -1,4 +1,5 @@
 import  mongoose from 'mongoose'
+import  { Role } from '../@types/global.types'
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const userSchema = new mongoose.Schema({
@@ -19,6 +20,11 @@ const userSchema = new mongoose.Schema({
         required:[true,'Email is required'],
         unique:[true,'User with provided email already exists.'],
         match:[emailRegex,'Please enter a valid email format']
+    },
+    role:{
+        type:String,
+        enum:Object.values(Role),
+        default:Role.user
     },
     phoneNumber:{
         type:String,

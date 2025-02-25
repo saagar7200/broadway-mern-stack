@@ -1,5 +1,5 @@
 import express  from 'express'
-import { register, update } from '../controllers/user.controller';
+import { register, update,login } from '../controllers/user.controller';
 
 const router = express.Router()
 
@@ -11,6 +11,9 @@ router.post('/', register);
 // update user profile
 router.put('/:id',update)
 
+// login
+
+router.post('/login', login);
 
 
 
