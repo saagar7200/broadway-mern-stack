@@ -1,8 +1,11 @@
 import 'dotenv/config'
 import express, { NextFunction, Request, Response } from 'express';
 import { connectDatabase } from './config/database.config';
-import userRoutes from './routes/user.routes'
 import CustomError from './middlewares/errorhandler.middleare'
+
+// importing routes
+import userRoutes from './routes/user.routes'
+import productRoutes from './routes/product.routes'
 
 const app = express();
 const PORT = process.env.PORT || 8000
@@ -15,7 +18,8 @@ app.use(express.urlencoded({extended:false}))
 
 
 // using routes
-app.use('/api/v1/user',userRoutes)
+app.use('/api/user',userRoutes)
+app.use('/api/product',productRoutes)
 
 // handle not found path
 app.all('*',(req:Request,res:Response,next:NextFunction) =>{
