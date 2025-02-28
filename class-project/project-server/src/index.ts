@@ -1,11 +1,13 @@
 import 'dotenv/config'
 import express, { NextFunction, Request, Response } from 'express';
 import { connectDatabase } from './config/database.config';
+import path from 'path'
 import CustomError from './middlewares/errorhandler.middleare'
 
 // importing routes
 import userRoutes from './routes/user.routes'
 import productRoutes from './routes/product.routes'
+import categoryRoutes from './routes/category.routes'
 
 const app = express();
 const PORT = process.env.PORT || 8000
@@ -13,14 +15,22 @@ const DB_URI = process.env.DB_URI || ''
 
 connectDatabase(DB_URI)
 
+
 // using middlewares
 app.use(express.urlencoded({extended:false}))
+
+// serving static files
+app.use('/api/uploads',express.static(path.join(__dirname,'../', 'uploads')))
+
+console.log("👊 ~ index.ts:23 ~ __dirname:", __dirname)
+
+
 
 
 // using routes
 app.use('/api/user',userRoutes)
 app.use('/api/product',productRoutes)
-
+app.use('/api/category',categoryRoutes)
 // handle not found path
 app.all('*',(req:Request,res:Response,next:NextFunction) =>{
 

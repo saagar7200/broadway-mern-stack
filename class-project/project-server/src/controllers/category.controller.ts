@@ -1,36 +1,31 @@
 import { Request, Response } from "express";
 import { asyncHandler } from "../utils/asyncHandler.util";
-import Product from "../models/product.model";
-
+import Category from "../models/category.model";
 
 
 export const create = asyncHandler(async (req:Request,res:Response)=>{
 
     const body = req.body;
-    console.log(req.file)
-    const product = await Product.create(body)
-    product.coverImage = req.file?.path
-
-    await product.save()
+    const category = await Category.create(body)
 
     res.status(201).json({
         status:'success',
         success:true,
-        data:product,
-        message:'Product created successfully!'
+        data:category,
+        message:'Category created successfully!'
     })
 
 })
 
 
 export const getAll = asyncHandler(async (req:Request,res:Response) =>{
-    const products = await Product.find({}).populate('createdBy')
+    const categories = await Category.find({})
 
     res.status(200).json({
         success:true,
         status:'success',
-        data:products,
-        message:'Products fetched successfully!'
+        data:categories,
+        message:'Categories fetched successfully!'
     })
 })
 
