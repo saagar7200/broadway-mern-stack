@@ -1,5 +1,5 @@
 import express  from 'express'
-import { create,getAll } from '../controllers/product.controller';
+import { create,getAll,getById } from '../controllers/product.controller';
 import multer from 'multer'
 
 const router = express.Router()
@@ -30,6 +30,7 @@ router.post('/', upload.fields([
 ]), create);
 
 router.get('/', getAll);
+router.get('/:id', getById);
 
 
 

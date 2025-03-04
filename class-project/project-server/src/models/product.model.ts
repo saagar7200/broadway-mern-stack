@@ -13,11 +13,7 @@ const productSchema  = new mongoose.Schema({
         required:[true,'price is required'],
         min:[0,"price should be greater than 0"]
     },
-    createdBy:{
-        type:mongoose.Types.ObjectId,
-        ref:'user',
-        required:[true,'Author is required']
-    },
+    
     description:{
         type:String,
         required:false,
@@ -28,6 +24,32 @@ const productSchema  = new mongoose.Schema({
         type:String,
         required:false
     },
+    images:[{
+        type:String,
+        required:false
+    }],
+    createdBy:{
+        type:mongoose.Types.ObjectId,
+        ref:'user',
+        required:[true,'Author is required']
+    },
+    category:{
+        type:mongoose.Types.ObjectId,
+        ref:'category',
+        required:[true,'Category is required']
+    },
+    reviews:[
+        {
+            type:mongoose.Types.ObjectId,
+            ref:'review',
+            required:false
+        }
+    ],
+    averageRating:{
+        type:Number,
+        default:0
+      
+    }
 
 
 
