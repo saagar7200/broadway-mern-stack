@@ -1,5 +1,11 @@
 import express from "express";
-import { create, getAll, getById } from "../controllers/product.controller";
+import {
+	create,
+	getAll,
+	getById,
+	update,
+	remove,
+} from "../controllers/product.controller";
 import multer from "multer";
 import { Authenticate } from "../middlewares/authentication.middleware";
 import { onlyAdmin } from "../@types/global.types";
@@ -34,6 +40,26 @@ router.post(
 	]),
 	create
 );
+
+router.put(
+	"/:id",
+	Authenticate(onlyAdmin),
+	upload.fields([
+		{
+			name: "coverImage",
+			maxCount: 1,
+		},
+		{
+			name: "images",
+			maxCount: 6,
+		},
+	]),
+
+	update
+);
+
+// delete product
+router.delete("/:id", Authenticate(onlyAdmin), remove);
 
 router.get("/", getAll);
 router.get("/:id", getById);

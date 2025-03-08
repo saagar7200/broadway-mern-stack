@@ -91,6 +91,31 @@ export const update = asyncHandler(async (req: Request, res: Response) => {
 	});
 });
 
+// delete product
+
+export const remove = asyncHandler(async (req: Request, res: Response) => {
+	const id = req.params.id;
+
+	const product = await Product.findById(id);
+
+	if (!product) {
+		throw new CustomError("Product not found", 404);
+	}
+
+	if (product.images && product.images.length > 0) {
+		await deleteFiles(product.images as string[]);
+	}
+
+	await Product.findByIdAndDelete(product._id);
+
+	res.status(201).json({
+		status: "success",
+		success: true,
+		data: product,
+		message: "Product deleted successfully!",
+	});
+});
+
 export const getAll = asyncHandler(async (req: Request, res: Response) => {
 	const products = await Product.find({}).populate("createdBy");
 
