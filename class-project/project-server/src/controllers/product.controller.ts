@@ -4,16 +4,35 @@ import Product from "../models/product.model";
 import CustomError from "../middlewares/errorhandler.middleare";
 import { deleteFiles } from "../utils/deleteFiles.util";
 import Category from "../models/category.model";
+import { getPaginationData } from "../utils/pagination.utils";
 
 export const create = asyncHandler(async (req: Request, res: Response) => {
-	const body = req.body;
-	const product = await Product.create(body);
-	const { coverImage, images } = req.files as {
-		[fieldname: string]: Express.Multer.File[];
+	const { name, price, description, category: categoryId } = req.body;
+	const admin = req.user;
+	const files = req.files as {
+		coverImage?: Express.Multer.File[];
+		images?: Express.Multer.File[];
 	};
-	if (!coverImage) {
+	if (!files || !files.coverImage) {
 		throw new CustomError("Cover image is required", 400);
 	}
+	const coverImage = files.coverImage;
+	const images = files.images;
+
+	// get category
+	const category = await Category.findById(categoryId);
+
+	if (!category) {
+		throw new CustomError("Category not found", 404);
+	}
+
+	const product = new Product({
+		name,
+		price,
+		description,
+		createdBy: admin._id,
+		category: category._id,
+	});
 
 	product.coverImage = coverImage[0]?.path;
 
@@ -117,12 +136,61 @@ export const remove = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const getAll = asyncHandler(async (req: Request, res: Response) => {
-	const products = await Product.find({}).populate("createdBy");
+	const {
+		limit,
+		page,
+		query,
+		category,
+		minPrice,
+		maxPrice,
+		sortBy = "createdAt",
+		order = "DESC",
+	} = req.query;
+	const queryLimit = parseInt(limit as string) || 10;
+	const currentPage = parseInt(page as string) || 1;
+	const skip = (currentPage - 1) * queryLimit;
+	let filter: Record<string, any> = {};
+
+	if (category) {
+		filter.category = category;
+	}
+
+	if (minPrice && maxPrice) {
+		filter.price = {
+			$lte: parseFloat(maxPrice as string),
+			$gte: parseFloat(minPrice as string),
+		};
+	}
+
+	if (query) {
+		filter.$or = [
+			{
+				name: { $regex: query, $options: "i" },
+			},
+			{
+				description: { $regex: query, $options: "i" },
+			},
+		];
+	}
+
+	const products = await Product.find(filter)
+		.skip(skip)
+		.limit(queryLimit)
+		.populate("createdBy")
+		.populate("category")
+		.sort({ [sortBy as string]: order === "DESC" ? -1 : 1 });
+
+	const totalCount = await Product.countDocuments(filter);
+
+	const pagination = getPaginationData(currentPage, queryLimit, totalCount);
 
 	res.status(200).json({
 		success: true,
 		status: "success",
-		data: products,
+		data: {
+			data: products,
+			pagination,
+		},
 		message: "Products fetched successfully!",
 	});
 });

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { asyncHandler } from "../utils/asyncHandler.util";
 import Category from "../models/category.model";
 import CustomError from "../middlewares/errorhandler.middleare";
+import { getPaginationData } from "../utils/pagination.utils";
 
 export const create = asyncHandler(async (req: Request, res: Response) => {
 	const body = req.body;
@@ -16,12 +17,33 @@ export const create = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const getAll = asyncHandler(async (req: Request, res: Response) => {
-	const categories = await Category.find({});
+	const { limit, page, query } = req.query;
+	let filter: Record<string, any> = {};
+
+	if (query) {
+		filter.$or = [
+			{ name: { $regex: query, $options: "i" } },
+			{ description: { $regex: query, $options: "i" } },
+		];
+	}
+
+	const queryLimit = parseInt(limit as string) || 10;
+	const currPage = parseInt(page as string) || 1;
+	const skip = (currPage - 1) * queryLimit;
+
+	const categories = await Category.find(filter)
+		.skip(skip)
+		.limit(queryLimit)
+		.sort({ createdAt: -1 });
+
+	const totalCount = await Category.countDocuments(filter);
+
+	const pagination = getPaginationData(currPage, queryLimit, totalCount);
 
 	res.status(200).json({
 		success: true,
 		status: "success",
-		data: categories,
+		data: { data: categories, pagination },
 		message: "Categories fetched successfully!",
 	});
 });

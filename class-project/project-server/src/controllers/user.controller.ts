@@ -2,23 +2,54 @@ import { Request, Response } from "express";
 import User from "../models/user.model";
 import { hash, compare } from "../utils/bcrypt.util";
 import { generateToken } from "../utils/jwt.util";
-import { IPayload } from "../@types/global.types";
+import { IPayload, Role } from "../@types/global.types";
 import { asyncHandler } from "../utils/asyncHandler.util";
 import CustomError from "../middlewares/errorhandler.middleare";
+import { getPaginationData } from "../utils/pagination.utils";
 
+export const getAll = asyncHandler(async (req: Request, res: Response) => {
+	const { limit, page, query } = req.query;
+	let filter: Record<string, any> = {};
+	const perPage = parseInt(limit as string) || 10;
+	const currentPage = parseInt(page as string) || 1;
+	const skip = (currentPage - 1) * perPage;
 
+	if (query) {
+		filter.$or = [
+			{
+				firstName: { $regex: query, $options: "i" },
+			},
+			{
+				lastName: { $regex: query, $options: "i" },
+			},
+			{
+				email: { $regex: query, $options: "i" },
+			},
+			{
+				phoneNumber: { $regex: query, $options: "i" },
+			},
+		];
+	}
 
+	filter.role = Role.user;
 
-export const getAll = asyncHandler(async (req:Request,res:Response) =>{
-    const users = await User.find({})
+	const users = await User.find(filter)
+		.skip(skip)
+		.limit(perPage)
+		.select("-password")
+		.sort({ createdAt: -1 });
+	const totalCount = await User.countDocuments(filter);
 
-    res.status(200).json({
-        success:true,
-        status:'success',
-        data:users,
-        message:'Products fetched successfully!'
-    })
-})
+	res.status(200).json({
+		success: true,
+		status: "success",
+		data: {
+			data: users,
+			pagination: getPaginationData(currentPage, perPage, totalCount),
+		},
+		message: "Products fetched successfully!",
+	});
+});
 
 export const register = asyncHandler(async (req: Request, res: Response) => {
 	const body = req.body;
@@ -27,11 +58,6 @@ export const register = asyncHandler(async (req: Request, res: Response) => {
 		throw new CustomError("password is required", 400);
 	}
 	const hashedPassword = await hash(body.password);
-
-	console.log(
-		"👊 ~ user.controller.ts:11 ~ register ~ hashedPassword:",
-		hashedPassword
-	);
 
 	//
 	body.password = hashedPassword;

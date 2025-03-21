@@ -73,7 +73,8 @@ export const Authenticate = (
 
 			next();
 		} catch (err: any) {
-			throw new CustomError(err?.message ?? "Something wend wrong", 500);
+			// throw new CustomError(err?.message ?? "Something wend wrong", 500);
+			next(err);
 		}
 	};
 };

@@ -13,6 +13,6 @@ const router = express.Router();
 router.post("/add", Authenticate(onlyUser), create);
 router.delete("/clear", Authenticate(onlyUser), clearCart);
 router.get("/:userId", Authenticate(onlyUser), getCartByUserId);
-router.get("/remove/:productId", Authenticate(onlyUser), removeItemFromCart);
+router.delete("/remove/:productId", Authenticate(onlyUser), removeItemFromCart);
 
 export default router;

@@ -3,6 +3,7 @@ import { asyncHandler } from "../utils/asyncHandler.util";
 import Review from "../models/review.model";
 import Product from "../models/product.model";
 import CustomError from "../middlewares/errorhandler.middleare";
+import { getPaginationData } from "../utils/pagination.utils";
 
 export const create = asyncHandler(async (req: Request, res: Response) => {
 	const body = req.body;
@@ -44,12 +45,32 @@ export const create = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const getAll = asyncHandler(async (req: Request, res: Response) => {
-	const reviews = await Review.find({});
+	const { limit, page, product } = req.query;
+	let filter: Record<string, any> = {};
+	const perPage = parseInt(limit as string) || 10;
+	const currentPage = parseInt(page as string) || 1;
+	const skip = (currentPage - 1) * perPage;
+
+	if (product) {
+		filter.product = product;
+	}
+
+	const reviews = await Review.find(filter)
+		.skip(skip)
+		.limit(perPage)
+		.sort({ createdAt: -1 })
+		.populate("user")
+		.populate("product");
+
+	const totalCount = await Review.countDocuments(filter);
 
 	res.status(200).json({
 		success: true,
 		status: "success",
-		data: reviews,
+		data: {
+			data: reviews,
+			pagination: getPaginationData(currentPage, perPage, totalCount),
+		},
 		message: "Reviews fetched successfully!",
 	});
 });
@@ -135,7 +156,7 @@ export const remove = asyncHandler(async (req: Request, res: Response) => {
 
 export const getReviewByProductId = asyncHandler(
 	async (req: Request, res: Response) => {
-		const productId = req.params.id;
+		const productId = req.params.productId;
 		const reviews = await Review.find({ product: productId }).populate("user");
 
 		res.status(200).json({

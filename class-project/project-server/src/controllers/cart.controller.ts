@@ -5,7 +5,12 @@ import { Cart } from "../models/cart.model";
 import Product from "../models/product.model";
 
 export const create = asyncHandler(async (req: Request, res: Response) => {
-	const { userId, productId, quantity } = req.body;
+	const { productId, quantity } = req.body;
+
+	console.log("👊 ~ cart.controller.ts:10 ~ create ~ quantity:", quantity);
+
+	const userId = req.user._id;
+
 	let cart;
 	if (!userId) {
 		throw new CustomError("userId is required", 400);
@@ -27,13 +32,19 @@ export const create = asyncHandler(async (req: Request, res: Response) => {
 		throw new CustomError("product not found", 404);
 	}
 
-	const existingProduct = cart.items.filter(
+	const existingProduct = cart.items.find(
 		(item) => item.product.toString() === productId
 	);
-	if (existingProduct) {
-		existingProduct[0].quantity += quantity;
 
-		cart.items.push(existingProduct);
+	console.log(
+		"👊 ~ cart.controller.ts:39 ~ create ~ existingProduct:",
+		existingProduct
+	);
+
+	if (existingProduct) {
+		existingProduct.quantity += Number(quantity);
+
+		// cart.items.push(existingProduct);
 	} else {
 		cart.items.push({ product: productId, quantity });
 	}
@@ -44,6 +55,7 @@ export const create = asyncHandler(async (req: Request, res: Response) => {
 		status: "success",
 		success: true,
 		message: "Product added to cart",
+		data: cart,
 	});
 });
 
@@ -51,7 +63,9 @@ export const getCartByUserId = asyncHandler(
 	async (req: Request, res: Response) => {
 		const userId = req.params.userId;
 
-		const cart = await Cart.findOne({ user: userId });
+		const cart = await Cart.findOne({ user: userId })
+			.populate("user", "-password")
+			.populate("items.product");
 
 		res.status(200).json({
 			status: "success",
@@ -63,8 +77,9 @@ export const getCartByUserId = asyncHandler(
 );
 
 export const clearCart = asyncHandler(async (req: Request, res: Response) => {
-	const userId = req.params.userId;
+	const userId = req.user._id;
 	const cart = await Cart.findOne({ user: userId });
+
 	if (!cart) {
 		throw new CustomError("Cart does not created yet.", 400);
 	}
