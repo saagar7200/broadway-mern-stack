@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import SquareCount from './squareCount'
 
 const Counter = ({show}) => {
@@ -29,9 +29,9 @@ const Counter = ({show}) => {
     
   //  },[])
 
-   useEffect(()=>{
-    throw new Error('errr');
-   },[count])
+  //  useEffect(()=>{
+  //   throw new Error('errr');
+  //  },[count])
   
   return (
     <div >

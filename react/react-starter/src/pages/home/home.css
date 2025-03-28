@@ -1,0 +1,130 @@
+/* div {
+    background-color: aqua;
+}
+
+p {
+    color: red
+} */
+
+/* .className {
+
+ } */
+
+.container {
+    background-color: antiquewhite;
+    height: 200vh;
+}
+
+/* #container {
+    background-color: antiquewhite;
+    height: 100vh;
+} */
+
+
+/* .child {
+    background-color: aquamarine;
+} */
+
+
+/* h1,
+p {
+    font-size: 20px;
+    font-weight: bold;
+} */
+
+
+/* .container > p {
+    color: aqua
+} */
+
+/* .container+h1 {
+    color: aqua
+} */
+/* .input:focus {
+    border: 1px solid red;
+    outline: none;
+
+}
+
+.child>p:nth-child(even) {
+    color: red
+}
+*/
+/* .child>p::first-line {
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0px 20px;
+}
+
+h1::before {
+    content: 'hello';
+} */
+
+/* input[data='input'] {
+    border: 1px solid red;
+    padding: 10px;
+    margin: 10px 0px;
+}
+
+h1[data='home'] {
+    color: red;
+} */
+
+
+/* .content {
+    border: 1px solid black;
+    width: 300px;
+    padding: 10px;
+    margin: 10px;
+} */
+
+/* .child {
+    border: 1px solid red;
+    width: 500px
+} */
+
+/* .child>p {
+    border: 1px solid green;
+    display: inline;
+} */
+
+/* b {
+    display: inline-block;
+    width: 200px;
+} */
+
+
+
+/* .child {
+    position: relative;
+    border: 1px dotted red;
+    background-color: red;
+    height: 200vh
+}
+
+.description {
+    position: sticky;
+    top: 50px;
+    right: 10px;
+} */
+
+
+/* .child {
+    display: flex;
+    gap: 10px;
+    padding: 5px;
+    flex-direction: row;
+    width: 600px;
+    border: 1px solid red;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+
+}
+
+.child>p {
+    border: 1px solid gray;
+    padding: 20px;
+    width: 200px;
+} */
