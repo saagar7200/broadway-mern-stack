@@ -25,7 +25,7 @@ const LoginForm = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div className={'flex flex-col gap-8'}>
+            <div className={' flex flex-col gap-4 md:gap-8 w-full'}>
                 <div className='flex flex-col gap-1'>
                     <div className='flex '>
                         <label className='text-base tracking-wide font-semibold text-gray-800' htmlFor="email" >Email </label>
@@ -36,7 +36,7 @@ const LoginForm = () => {
                         type='text'
                         name='email'
                         placeholder="johndoe@gmail.com"
-                        className={`text-lg border ${errors.email ? 'border-red-500 text-red-500 ' : 'border-gray-700'} p-2 rounded-md placeholder:text-gray-500`}
+                        className={`text-lg border ${errors.email ? 'border-red-500 text-red-500 ' : 'border-gray-300'} p-2 rounded-md placeholder:text-gray-500`}
                     />
                     {errors?.email && <p className='text-xs text-red-500'>{errors.email.message}</p>}
                 </div>
@@ -52,13 +52,13 @@ const LoginForm = () => {
                         type="password"
                         name='password'
                         placeholder="password"
-                        className={`text-lg border ${errors.email ? 'border-red-500 text-red-500 ' : 'border-gray-700'} p-2 rounded-md placeholder:text-gray-500`}
+                        className={`text-lg border ${errors.email ? 'border-red-500 text-red-500 ' : 'border-gray-300'} p-2 rounded-md placeholder:text-gray-500`}
 
                     />
                     {errors?.password && <p className='text-xs text-red-500'>{errors.password.message}</p>}
 
                 </div>
-                <button className='text-lg font-semibold px-4 py-3 bg-blue-500 rounded-md text-white cursor-pointer hover:bg-blue-700 transition-all duration-300' type='submit'>Login</button>
+                <button className='hidden md:block text-lg font-semibold px-4 py-3 bg-blue-500 rounded-md text-white cursor-pointer hover:bg-blue-700 transition-all duration-300' type='submit'>Login</button>
             </div>
         </form>
 
