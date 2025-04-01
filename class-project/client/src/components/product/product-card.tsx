@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 const ProductCard = () => {
     return (
-        <div className='tracking-wider border border-gray-300 w-fit rounded-md '>
+        <div className='overflow-hidden tracking-wider border border-gray-300 w-fit rounded-md '>
             {/* image */}
             <div className='h-50 w-60 aspect-square p-3'>
                 <Image 
@@ -22,7 +22,7 @@ const ProductCard = () => {
                 </span>
             </div>
             <div >
-                <button className='cursor-pointer py-2 w-full text-[14px] bg-black text-white font-semibold'>View Detail</button>
+                <button className='cursor-pointer py-3 w-full text-[14px] bg-black text-white font-semibold'>View Detail</button>
             </div>
         </div>
     )
